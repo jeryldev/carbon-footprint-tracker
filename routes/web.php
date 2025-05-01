@@ -53,6 +53,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
         ->name('profile.update');
     Route::delete('/hero-profile', [ProfileController::class, 'destroy'])
         ->name('profile.delete');
+
+    // Achievements
+    Route::get('/achievements', [AchievementController::class, 'index'])
+        ->middleware(['auth'])
+        ->name('achievements.index');
 });
 
 require __DIR__.'/auth.php';

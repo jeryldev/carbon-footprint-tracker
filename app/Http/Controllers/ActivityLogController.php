@@ -5,16 +5,19 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\EmissionFactor;
 use App\Services\CarbonCalculationService;
+use App\Services\AchievementService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ActivityLogController extends Controller
 {
     protected $carbonCalculationService;
+    protected $achievementService;
 
-    public function __construct(CarbonCalculationService $carbonCalculationService)
+    public function __construct(CarbonCalculationService $carbonCalculationService, AchievementService $achievementService)
     {
         $this->carbonCalculationService = $carbonCalculationService;
+        $this->achievementService = $achievementService;
     }
 
     /**
@@ -97,8 +100,8 @@ class ActivityLogController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
+        * Store a newly created resource in storage.
+        */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -117,7 +120,7 @@ class ActivityLogController extends Controller
             ->first();
 
         if ($existingLog) {
-            return redirect()->back()->withErrors(['date' => 'You already have a planet log for this day!']);
+            return redirect()->back()->with('error', 'You already have an activity logged for this day!');
         }
 
         // Calculate carbon footprint
@@ -139,8 +142,11 @@ class ActivityLogController extends Controller
             'carbon_footprint' => $carbonFootprint,
         ]);
 
+        // Check for achievements
+        $this->achievementService->checkAchievements($user);
+
         return redirect()->route('dashboard')
-            ->with('success', 'Awesome! Your planet-saving activity has been logged!');
+            ->with('success', 'Hooray! Your planet-saving activity has been logged!');
     }
 
     /**
@@ -189,8 +195,11 @@ class ActivityLogController extends Controller
             'carbon_footprint' => $carbonFootprint,
         ]);
 
+        // Check for achievements
+        $this->achievementService->checkAchievements($request->user());
+
         return redirect()->route('activity-logs.index')
-            ->with('success', 'Your planet-saving log has been updated!');
+            ->with('success', 'Your planet-saving activity has been updated! Great job!');
     }
 
     /**
