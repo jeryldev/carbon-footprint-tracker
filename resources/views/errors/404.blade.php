@@ -15,7 +15,7 @@
                     <div class="text-6xl mb-4">🔍</div>
                     <h1 class="text-3xl font-bold text-gray-800 mb-2">Oops! Page Not Found</h1>
                     <p class="text-gray-600 mb-6">
-                        We couldn't find the page you're looking for. It might be on another planet!
+                        I couldn't find the page you're looking for. It might be on another planet!
                     </p>
                     <a href="{{ route('dashboard') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 transition">
                         <span class="mr-1">🏠</span> Back to Dashboard

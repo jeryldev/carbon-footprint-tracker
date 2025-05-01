@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\BaselineAssessmentController;
-use App\Http\Controllers\AchievementController;
+use App\Http\Controllers\WikiController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
-// Adjust the routes in routes/web.php to be more kid-friendly
 Route::get('/', function () {
     return view('welcome');
 })->name('home');
@@ -55,10 +54,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/hero-profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
 
-    // Achievements
-    Route::get('/achievements', [AchievementController::class, 'index'])
-        ->middleware(['auth'])
-        ->name('achievements.index');
+    // Wiki/Knowledge Base
+    Route::get('/learn', [WikiController::class, 'index'])->name('wiki.index');
+    Route::get('/learn/{topic}', [WikiController::class, 'show'])->name('wiki.show');
 });
 
 require __DIR__.'/auth.php';

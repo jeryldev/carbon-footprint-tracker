@@ -63,22 +63,27 @@
                 {{ $slot }}
             </main>
 
-            <!-- Kid-Friendly Footer -->
-            <footer class="bg-white shadow-inner mt-6 py-6">
+            <!-- Footer -->
+            <footer class="bg-green-50 shadow-inner mt-6 py-8">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div class="text-center">
-                        <div class="flex justify-center space-x-3 mb-3">
-                            <span class="text-2xl">🌎</span>
-                            <span class="text-2xl">🌳</span>
-                            <span class="text-2xl">🚲</span>
-                            <span class="text-2xl">💚</span>
+                        <div class="flex justify-center space-x-4 mb-4">
+                            <span class="text-3xl bg-white p-2 rounded-full shadow-sm">🌎</span>
+                            <span class="text-3xl bg-white p-2 rounded-full shadow-sm">🌳</span>
+                            <span class="text-3xl bg-white p-2 rounded-full shadow-sm">🚲</span>
+                            <span class="text-3xl bg-white p-2 rounded-full shadow-sm">💚</span>
                         </div>
-                        <p class="text-gray-600 text-sm">
+                        <p class="text-green-700 text-lg font-medium">
                             Every day is Earth Day when you're a Planet Protector!
                         </p>
-                        <p class="text-gray-500 text-xs mt-1">
-                            Based on research by Aiza C. Cortes from the University of the Philippines Cebu
-                        </p>
+                        <div class="mt-4 pt-4 border-t border-green-200 max-w-lg mx-auto">
+                            <p class="text-gray-600 mb-1">
+                                Created by <span class="font-semibold">Jeryl Estopace</span> for CMSC 207 - Web Programming and Development
+                            </p>
+                            <p class="text-gray-500 text-sm">
+                                Based on research by Aiza C. Cortes from the University of the Philippines Cebu
+                            </p>
+                        </div>
                     </div>
                 </div>
             </footer>

@@ -20,6 +20,10 @@
                     <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')" class="text-white">
                         <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
+                        <span class="text-xl mr-1">📚</span> {{ __('Learn') }}
+                    </x-nav-link>
                 </div>
             </div>
 
