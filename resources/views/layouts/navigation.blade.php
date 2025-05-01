@@ -14,15 +14,15 @@
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">
-                        <span class="text-xl mr-1">🏠</span> {{ __('Dashboard') }}
+                        <span class="text-xl mr-1">🚀</span> {{ __('Mission Control') }}
                     </x-nav-link>
 
                     <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
-                        <span class="text-xl mr-1">📝</span> {{ __('My Activities') }}
+                        <span class="text-xl mr-1">📝</span> {{ __('Planet Actions') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('activity-logs.create')" class="text-white">
-                        <span class="text-xl mr-1">➕</span> {{ __('Log Activity') }}
+                    <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')" class="text-white">
+                        <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -44,11 +44,11 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('baseline-assessment.edit')">
-                            <span class="text-lg mr-1">📊</span> {{ __('Update My Baseline') }}
+                            <span class="text-lg mr-1">🌍</span> {{ __('My Planet Profile') }}
                         </x-dropdown-link>
 
                         <x-dropdown-link :href="route('profile.edit')">
-                            <span class="text-lg mr-1">👤</span> {{ __('My Profile') }}
+                            <span class="text-lg mr-1">👤</span> {{ __('Hero Settings') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
