@@ -1,61 +1,141 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Carbon Footprint Tracker
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web application designed to help users understand, measure, and reduce their carbon footprint through tracking, visualization, and actionable recommendations.
 
-## About Laravel
+## Project Overview
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+This application helps users:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+- Track their daily activities that contribute to carbon emissions
+- Calculate their carbon footprint using scientific emission factors
+- View historical data and progress over time
+- Receive personalized recommendations for reducing their environmental impact
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Features
 
-## Learning Laravel
+- User authentication and registration
+- Baseline carbon footprint assessment
+- Daily activity tracking (transportation, electricity, waste)
+- Carbon calculations based on the UP Cebu research study
+- Dashboard with carbon footprint visualization
+- Personalized recommendations for reducing emissions
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Setup Instructions
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Prerequisites
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+- PHP 8.1 or higher
+- Composer
+- Node.js & npm
+- MySQL or SQLite
 
-## Laravel Sponsors
+### Installation
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+1. Clone the repository
 
-### Premium Partners
+    ```bash
+    git clone https://github.com/jeryldev/carbon-footprint-tracker.git
+    cd carbon-footprint-tracker
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development/)**
-- **[Active Logic](https://activelogic.com)**
+2. Install PHP dependencies
 
-## Contributing
+    ```bash
+    composer install
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+3. Install JavaScript dependencies
 
-## Code of Conduct
+    ```bash
+    npm install
+    ```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+4. Create a copy of the environment file
 
-## Security Vulnerabilities
+    ```bash
+    cp .env.example .env
+    ```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+5. Generate an application key
+
+    ```bash
+    php artisan key:generate
+    ```
+
+6. Configure the database in `.env`
+
+    ```
+    # For MySQL
+    DB_CONNECTION=mysql
+    DB_HOST=127.0.0.1
+    DB_PORT=3306
+    DB_DATABASE=carbon_tracker
+    DB_USERNAME=root
+    DB_PASSWORD=your_password  # Replace with your actual MySQL password if you have one
+
+    # Or for SQLite (simpler setup)
+    # DB_CONNECTION=sqlite
+    # (Then create an empty database.sqlite file in the database directory)
+    # touch database/database.sqlite
+    ```
+
+    **Important:** Make sure to set the correct password for your MySQL installation in the `DB_PASSWORD` field. If your local MySQL instance requires a password and it's not correctly specified in the `.env` file, you'll encounter connection errors.
+
+7. Run migrations
+
+    ```bash
+    php artisan migrate
+    ```
+
+8. Seed the emission factors data
+
+    ```bash
+    php artisan db:seed --class=EmissionFactorsSeeder
+    ```
+
+9. Build assets
+
+    ```bash
+    npm run dev
+    ```
+
+10. Start the development server
+
+    ```bash
+    php artisan serve
+    ```
+
+The application will be available at <http://localhost:8000>
+
+## Development
+
+### Running the Development Server
+
+```bash
+# Terminal 1: Start the Laravel server
+php artisan serve
+
+# Terminal 2: Watch for frontend changes
+npm run dev
+```
+
+### Database Structure
+
+The application uses the following main tables:
+
+- `users` - User account information
+- `baseline_assessments` - User's initial carbon footprint data
+- `activity_logs` - Daily tracking of user activities
+- `emission_factors` - Scientific emission conversion values
+
+## Credits
+
+This project uses emission factors from the following research paper:
+
+Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines: the Case of UP Cebu. _Philippine Journal of Science, 151_(3), 901-912. <https://doi.org/10.56899/151.03.10>
+
+The emission factors derived from this study form the scientific foundation for our carbon footprint calculations.
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+[MIT License](LICENSE)
