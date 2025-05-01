@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BaselineAssessmentController;
+use App\Http\Controllers\ActivityLogController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +26,9 @@ Route::middleware('auth')->group(function () {
     // Baseline Assessment Routes
     Route::get('/baseline-assessment', [BaselineAssessmentController::class, 'create'])->name('baseline-assessment.create');
     Route::post('/baseline-assessment', [BaselineAssessmentController::class, 'store'])->name('baseline-assessment.store');
+
+    // Activity Log Routes
+    Route::resource('activity-logs', ActivityLogController::class)->except(['show']);
 });
 
 require __DIR__.'/auth.php';
