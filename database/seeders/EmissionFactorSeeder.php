@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\EmissionFactor;
 use Illuminate\Database\Seeder;
-use Illuminate\Support\Facades\DB;
 
-class EmissionFactorsSeeder extends Seeder
+class EmissionFactorSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,17 +18,14 @@ class EmissionFactorsSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('emission_factors')->insert([
-            // Transportation emission factors (kg CO2/km)
+        $factors = [
             [
                 'category' => 'transportation',
                 'type' => 'walk',
                 'value' => 0.0,
                 'unit' => 'kg_co2_per_km',
                 'description' => 'Walking - Zero emissions',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
             [
                 'category' => 'transportation',
@@ -36,9 +33,7 @@ class EmissionFactorsSeeder extends Seeder
                 'value' => 0.0,
                 'unit' => 'kg_co2_per_km',
                 'description' => 'Bicycle - Zero emissions',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
             [
                 'category' => 'transportation',
@@ -46,9 +41,7 @@ class EmissionFactorsSeeder extends Seeder
                 'value' => 0.1174424,
                 'unit' => 'kg_co2_per_km',
                 'description' => 'Motorcycle emissions factor',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
             [
                 'category' => 'transportation',
@@ -56,9 +49,7 @@ class EmissionFactorsSeeder extends Seeder
                 'value' => 0.2118934,
                 'unit' => 'kg_co2_per_km',
                 'description' => 'Car emissions factor (average)',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
             [
                 'category' => 'transportation',
@@ -66,34 +57,34 @@ class EmissionFactorsSeeder extends Seeder
                 'value' => 0.2883241,
                 'unit' => 'kg_co2_per_km',
                 'description' => 'Public transit (bus, jeepney) emissions factor',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
-
-            // Electricity emissions (kg CO2/kWh)
             [
                 'category' => 'electricity',
                 'type' => 'grid',
                 'value' => 0.5070,
                 'unit' => 'kg_co2_per_kwh',
                 'description' => 'Electricity grid emissions factor (Visayas grid)',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
-
-            // Waste emissions (kg CO2/kg waste)
             [
                 'category' => 'waste',
                 'type' => 'general',
                 'value' => 1.84,
                 'unit' => 'kg_co2_per_kg_waste',
                 'description' => 'General waste emissions factor',
-                'source_reference' => 'https://doi.org/10.56899/151.03.10',
-                'created_at' => now(),
-                'updated_at' => now(),
+                'source_reference' => 'Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines',
             ],
-        ]);
+        ];
+
+        foreach ($factors as $factor) {
+            EmissionFactor::updateOrCreate(
+                [
+                    'category' => $factor['category'],
+                    'type' => $factor['type'],
+                ],
+                $factor
+            );
+        }
     }
 }
