@@ -15,6 +15,14 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')">
+                        {{ __('Log Activity') }}
+                    </x-nav-link>
+
+                    <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.index')">
+                        {{ __('Activity History') }}
+                    </x-nav-link>
                 </div>
             </div>
 
@@ -69,6 +77,14 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')">
+                {{ __('Log Activity') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.index')">
+                {{ __('Activity History') }}
             </x-responsive-nav-link>
         </div>
 
