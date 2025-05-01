@@ -12,32 +12,47 @@ use Illuminate\Support\Facades\Route;
 |--------------------------------------------------------------------------
 */
 
+// Adjust the routes in routes/web.php to be more kid-friendly
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
     // Dashboard
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('/mission-control', [DashboardController::class, 'index'])
+        ->name('dashboard');
 
     // Baseline Assessment
-    Route::get('/baseline/create', [BaselineAssessmentController::class, 'create'])->name('baseline-assessment.create');
-    Route::post('/baseline', [BaselineAssessmentController::class, 'store'])->name('baseline-assessment.store');
-    Route::get('/baseline/edit', [BaselineAssessmentController::class, 'edit'])->name('baseline-assessment.edit');
-    Route::put('/baseline', [BaselineAssessmentController::class, 'update'])->name('baseline-assessment.update');
+    Route::get('/planet-profile/create', [BaselineAssessmentController::class, 'create'])
+        ->name('baseline-assessment.create');
+    Route::post('/planet-profile', [BaselineAssessmentController::class, 'store'])
+        ->name('baseline-assessment.store');
+    Route::get('/planet-profile/edit', [BaselineAssessmentController::class, 'edit'])
+        ->name('baseline-assessment.edit');
+    Route::put('/planet-profile', [BaselineAssessmentController::class, 'update'])
+        ->name('baseline-assessment.update');
 
     // Activity Logs
-    Route::get('/activities', [ActivityLogController::class, 'index'])->name('activity-logs.index');
-    Route::get('/activities/create', [ActivityLogController::class, 'create'])->name('activity-logs.create');
-    Route::post('/activities', [ActivityLogController::class, 'store'])->name('activity-logs.store');
-    Route::get('/activities/{activityLog}/edit', [ActivityLogController::class, 'edit'])->name('activity-logs.edit');
-    Route::put('/activities/{activityLog}', [ActivityLogController::class, 'update'])->name('activity-logs.update');
-    Route::delete('/activities/{activityLog}', [ActivityLogController::class, 'destroy'])->name('activity-logs.destroy');
+    Route::get('/planet-actions', [ActivityLogController::class, 'index'])
+        ->name('activity-logs.index');
+    Route::get('/planet-actions/new', [ActivityLogController::class, 'create'])
+        ->name('activity-logs.create');
+    Route::post('/planet-actions', [ActivityLogController::class, 'store'])
+        ->name('activity-logs.store');
+    Route::get('/planet-actions/{activityLog}/edit', [ActivityLogController::class, 'edit'])
+        ->name('activity-logs.edit');
+    Route::put('/planet-actions/{activityLog}', [ActivityLogController::class, 'update'])
+        ->name('activity-logs.update');
+    Route::delete('/planet-actions/{activityLog}', [ActivityLogController::class, 'destroy'])
+        ->name('activity-logs.destroy');
 
     // Profile Management
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.delete');
+    Route::get('/hero-profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::patch('/hero-profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::delete('/hero-profile', [ProfileController::class, 'destroy'])
+        ->name('profile.delete');
 });
 
 require __DIR__.'/auth.php';
