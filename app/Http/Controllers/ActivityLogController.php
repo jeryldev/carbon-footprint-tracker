@@ -6,6 +6,7 @@ use App\Models\ActivityLog;
 use App\Services\CarbonCalculationService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ActivityLogController extends Controller
 {
@@ -99,16 +100,15 @@ class ActivityLogController extends Controller
      */
     public function edit(ActivityLog $activityLog)
     {
-        $this->authorize('update', $activityLog);
+        // Using Gate::authorize instead of $this->authorize
+        Gate::authorize('update', $activityLog);
 
         $transportTypes = [
-            'walking' => 'Walking/Cycling (0 emission)',
+            'walk' => 'Walking (0 emission)',
+            'bicycle' => 'Cycling (0 emission)',
             'motorcycle' => 'Motorcycle',
             'car' => 'Car (private)',
-            'taxi' => 'Taxi/Grab',
-            'jeepney' => 'Jeepney',
-            'bus' => 'Bus',
-            'train' => 'Train/Metro',
+            'public_transit' => 'Public Transit (bus, jeepney)',
         ];
 
         return view('activity-logs.edit', [
@@ -126,7 +126,8 @@ class ActivityLogController extends Controller
      */
     public function update(Request $request, ActivityLog $activityLog)
     {
-        $this->authorize('update', $activityLog);
+        // Using Gate::authorize instead of $this->authorize
+        Gate::authorize('update', $activityLog);
 
         $validated = $request->validate([
             'date' => 'required|date',
@@ -166,7 +167,7 @@ class ActivityLogController extends Controller
      */
     public function destroy(ActivityLog $activityLog)
     {
-        $this->authorize('delete', $activityLog);
+        Gate::authorize('delete', $activityLog);
 
         $activityLog->delete();
 
