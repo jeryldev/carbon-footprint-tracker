@@ -20,9 +20,9 @@ class CarbonCalculationService
             ->first();
 
         if (!$emissionFactor) {
-            // Default to car if specific transport type not found
+            // Default to public_transit if specific transport type not found
             $emissionFactor = EmissionFactor::where('category', 'transportation')
-                ->where('type', 'car')
+                ->where('type', 'public_transit')
                 ->first();
         }
 

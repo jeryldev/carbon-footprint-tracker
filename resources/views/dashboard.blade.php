@@ -71,7 +71,28 @@
                                             <span class="text-gray-600">{{ number_format($log->carbon_footprint, 2) }} kg CO<sub>2</sub>e</span>
                                         </div>
                                         <div class="text-sm text-gray-600">
-                                            <span>Transport: {{ ucfirst($log->transport_type) }} ({{ number_format($log->transport_distance, 1) }} km)</span>
+                                            <span>Transport:
+                                                @switch($log->transport_type)
+                                                    @case('walk')
+                                                        Walking
+                                                        @break
+                                                    @case('bicycle')
+                                                        Cycling
+                                                        @break
+                                                    @case('motorcycle')
+                                                        Motorcycle
+                                                        @break
+                                                    @case('car')
+                                                        Car
+                                                        @break
+                                                    @case('public_transit')
+                                                        Public Transit
+                                                        @break
+                                                    @default
+                                                        {{ ucfirst($log->transport_type) }}
+                                                @endswitch
+                                                ({{ number_format($log->transport_distance, 1) }} km)
+                                            </span>
                                         </div>
                                     </div>
                                 @endforeach

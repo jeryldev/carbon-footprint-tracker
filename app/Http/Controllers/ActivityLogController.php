@@ -24,13 +24,11 @@ class ActivityLogController extends Controller
     public function create()
     {
         $transportTypes = [
-            'walking' => 'Walking/Cycling (0 emission)',
+            'walk' => 'Walking (0 emission)',
+            'bicycle' => 'Cycling (0 emission)',
             'motorcycle' => 'Motorcycle',
             'car' => 'Car (private)',
-            'taxi' => 'Taxi/Grab',
-            'jeepney' => 'Jeepney',
-            'bus' => 'Bus',
-            'train' => 'Train/Metro',
+            'public_transit' => 'Public Transit (bus, jeepney)',
         ];
 
         return view('activity-logs.create', [

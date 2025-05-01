@@ -64,7 +64,25 @@
                                                 {{ $log->date->format('Y-m-d') }}
                                             </td>
                                             <td class="py-2 px-4 border-b border-gray-200">
-                                                {{ ucfirst($log->transport_type) }}
+                                                @switch($log->transport_type)
+                                                    @case('walk')
+                                                        Walking
+                                                        @break
+                                                    @case('bicycle')
+                                                        Cycling
+                                                        @break
+                                                    @case('motorcycle')
+                                                        Motorcycle
+                                                        @break
+                                                    @case('car')
+                                                        Car
+                                                        @break
+                                                    @case('public_transit')
+                                                        Public Transit
+                                                        @break
+                                                    @default
+                                                        {{ ucfirst($log->transport_type) }}
+                                                @endswitch
                                             </td>
                                             <td class="py-2 px-4 border-b border-gray-200">
                                                 {{ number_format($log->transport_distance, 1) }}
@@ -76,7 +94,7 @@
                                                 {{ number_format($log->waste_generation, 1) }}
                                             </td>
                                             <td class="py-2 px-4 border-b border-gray-200">
-                                                {{ number_format($log->carbon_footprint, 2) }} kg CO2e
+                                                {{ number_format($log->carbon_footprint, 2) }} kg CO<sub>2</sub>e
                                             </td>
                                             <td class="py-2 px-4 border-b border-gray-200">
                                                 <div class="flex space-x-2">
