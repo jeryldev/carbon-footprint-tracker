@@ -24,6 +24,10 @@
                     <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')" class="text-white">
                         <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
                     </x-nav-link>
+
+                    <x-nav-link :href="route('achievements.index')" :active="request()->routeIs('achievements.*')" class="text-white">
+                        <span class="text-xl mr-1">🏆</span> {{ __('Achievements') }}
+                    </x-nav-link>
                 </div>
             </div>
 
