@@ -3,6 +3,10 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Blade;
+use App\Models\ActivityLog;
+use App\Policies\ActivityLogPolicy;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +23,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Register policy
+        Gate::policy(ActivityLog::class, ActivityLogPolicy::class);
     }
 }
