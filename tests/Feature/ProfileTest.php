@@ -17,7 +17,7 @@ class ProfileTest extends TestCase
 
         $response = $this
             ->actingAs($user)
-            ->get(route('profile.edit')); // Change from '/profile' to route name
+            ->get(route('profile.edit'));
 
         $response->assertOk();
     }

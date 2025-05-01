@@ -7,7 +7,7 @@ use App\Services\CarbonCalculationService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class CarbonCalculationTest extends TestCase
+class CarbonCalculationServiceTest extends TestCase
 {
     use RefreshDatabase;
 
