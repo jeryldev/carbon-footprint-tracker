@@ -93,4 +93,15 @@ class User extends Authenticatable
     {
         return $this->hasMany(ActivityLog::class);
     }
+
+    // In app/Models/User.php
+
+    // Add this to the existing relationships
+    /**
+     * Get the user's achievements.
+     */
+    public function achievements()
+    {
+        return $this->hasMany(Achievement::class);
+    }
 }
