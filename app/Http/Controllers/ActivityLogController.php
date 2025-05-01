@@ -8,6 +8,7 @@ use App\Services\CarbonCalculationService;
 use App\Services\AchievementService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActivityLogController extends Controller
 {
@@ -33,9 +34,9 @@ class ActivityLogController extends Controller
             ->whereMonth('date', $month->month)
             ->orderBy('date', 'desc')
             ->get();
-
         $months = $user->activityLogs()
-            ->selectRaw('DISTINCT EXTRACT(YEAR FROM date) as year, EXTRACT(MONTH FROM date) as month')
+            ->select(DB::raw('EXTRACT(YEAR FROM date) as year, EXTRACT(MONTH FROM date) as month'))
+            ->distinct()
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->get()
