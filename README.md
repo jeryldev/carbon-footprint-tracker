@@ -34,7 +34,7 @@ This application helps users:
 1. Clone the repository
 
     ```bash
-    git clone https://github.com/yourusername/carbon-footprint-tracker.git
+    git clone https://github.com/jeryldev/carbon-footprint-tracker.git
     cd carbon-footprint-tracker
     ```
 
@@ -132,7 +132,7 @@ The application uses the following main tables:
 
 This project uses emission factors from the following research paper:
 
-Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines: the Case of UP Cebu. Philippine Journal of Science, 151(3), 901-912. <https://doi.org/10.56899/151.03.10>
+Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines: the Case of UP Cebu. _Philippine Journal of Science, 151_(3), 901-912. <https://doi.org/10.56899/151.03.10>
 
 The emission factors derived from this study form the scientific foundation for our carbon footprint calculations.
 
