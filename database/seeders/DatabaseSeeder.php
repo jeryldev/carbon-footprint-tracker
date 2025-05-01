@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             EmissionFactorsSeeder::class,
+            AchievementSeeder::class
         ]);
     }
 }
