@@ -101,7 +101,7 @@
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center gap-4">
-                            <div>Based on research by Aiza C. Cortes, University of the Philippines Cebu</div>
+                            <div>Created by Jeryl D. Estopace for the final project in CMSC 207 - Web Programming and Development</div>
                         </div>
                     </div>
 
