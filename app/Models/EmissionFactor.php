@@ -58,14 +58,14 @@ class EmissionFactor extends Model
     }
 
     /**
-     * Get all available transport types.
+     * Get all available transport types with friendly labels.
      *
      * @return array
      */
     public static function getTransportTypes(): array
     {
         $types = self::where('category', 'transportation')
-            ->pluck('type', 'type')
+            ->pluck('type')
             ->toArray();
 
         $labels = [
