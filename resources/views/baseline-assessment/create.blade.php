@@ -88,7 +88,7 @@
                                     @endfor
                                 </select>
                                 <p class="text-sm text-gray-500 mt-1">
-                                    Most kids go to school 5 days a week!
+                                    Most students go to school 5 days a week!
                                 </p>
                                 <x-input-error :messages="$errors->get('commute_days_per_week')" class="mt-2" />
                             </div>

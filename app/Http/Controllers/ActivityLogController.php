@@ -196,7 +196,9 @@ class ActivityLogController extends Controller
         ]);
 
         // Check for achievements
-        $this->achievementService->checkAchievements($request->user());
+        $user = $request->user();
+        $this->achievementService->checkAchievements($user);
+
 
         return redirect()->route('activity-logs.index')
             ->with('success', 'Your planet-saving activity has been updated! Great job!');

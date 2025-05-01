@@ -2,14 +2,13 @@
     "$schema": "https://getcomposer.org/schema.json",
     "name": "laravel/carbon-footprint-tracker",
     "type": "project",
-    "description": "A kid-friendly carbon footprint tracker based on research by Aiza C. Cortes.",
+    "description": "A carbon footprint tracker based on research by Aiza C. Cortes.",
     "keywords": [
         "laravel",
         "carbon",
         "footprint",
         "environment",
-        "climate",
-        "kids"
+        "climate"
     ],
     "license": "MIT",
     "require": {

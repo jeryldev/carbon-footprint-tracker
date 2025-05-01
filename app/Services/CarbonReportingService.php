@@ -44,7 +44,6 @@ class CarbonReportingService
         $savings = $expectedFootprint - $actualFootprint;
         $isSaving = $savings > 0;
 
-        // Create kid-friendly equivalents
         return [
             'is_saving' => $isSaving,
             'savings' => abs($savings),
@@ -53,7 +52,7 @@ class CarbonReportingService
             'ice_saved' => $this->iceSavedEquivalent($savings),
             'superhero_points' => $this->superheroPoints($savings),
             'days_tracked' => $logs->count(),
-            'message' => $this->kidFriendlyMessage($isSaving, $savings, $period)
+            'message' => $this->friendlyMessage($isSaving, $savings, $period)
         ];
     }
 
@@ -77,9 +76,9 @@ class CarbonReportingService
     }
 
     /**
-     * Create kid-friendly message
+     * Create friendly message
      */
-    private function kidFriendlyMessage(bool $isSaving, float $savings, string $period): string
+    private function friendlyMessage(bool $isSaving, float $savings, string $period): string
     {
         if (!$isSaving) {
             return "Oops! You used more carbon than usual. Let's try to walk or bike more tomorrow!";

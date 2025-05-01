@@ -7,16 +7,12 @@
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}" class="text-white font-bold text-xl flex items-center">
                         <span class="text-3xl mr-2">🌍</span>
-                        <span>Planet Protectors</span>
+                        <span>Carbon Footprint Tracker</span>
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">
-                        <span class="text-xl mr-1">🚀</span> {{ __('Mission Control') }}
-                    </x-nav-link>
-
                     <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
                         <span class="text-xl mr-1">📝</span> {{ __('Planet Actions') }}
                     </x-nav-link>
@@ -25,8 +21,8 @@
                         <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
                     </x-nav-link>
 
-                    <x-nav-link :href="route('achievements.index')" :active="request()->routeIs('achievements.*')" class="text-white">
-                        <span class="text-xl mr-1">🏆</span> {{ __('Achievements') }}
+                    <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
+                        <span class="text-xl mr-1">📚</span> {{ __('Learn') }}
                     </x-nav-link>
                 </div>
             </div>
