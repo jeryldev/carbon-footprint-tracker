@@ -53,7 +53,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/hero-profile', [ProfileController::class, 'update'])
         ->name('profile.update');
     Route::delete('/hero-profile', [ProfileController::class, 'destroy'])
-        ->name('profile.delete');
+        ->name('profile.destroy');
 
     // Achievements
     Route::get('/achievements', [AchievementController::class, 'index'])
