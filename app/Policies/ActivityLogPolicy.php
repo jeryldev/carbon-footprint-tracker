@@ -4,44 +4,46 @@ namespace App\Policies;
 
 use App\Models\ActivityLog;
 use App\Models\User;
-use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Auth\Access\Response;
 
 class ActivityLogPolicy
 {
-    use HandlesAuthorization;
+    /**
+     * Determine whether the user can view any models.
+     */
+    public function viewAny(User $user): bool
+    {
+        return true;
+    }
 
     /**
      * Determine whether the user can view the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\ActivityLog  $activityLog
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, ActivityLog $activityLog)
+    public function view(User $user, ActivityLog $activityLog): bool
     {
         return $user->id === $activityLog->user_id;
     }
 
     /**
-     * Determine whether the user can update the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\ActivityLog  $activityLog
-     * @return \Illuminate\Auth\Access\Response|bool
+     * Determine whether the user can create models.
      */
-    public function update(User $user, ActivityLog $activityLog)
+    public function create(User $user): bool
+    {
+        return true;
+    }
+
+    /**
+     * Determine whether the user can update the model.
+     */
+    public function update(User $user, ActivityLog $activityLog): bool
     {
         return $user->id === $activityLog->user_id;
     }
 
     /**
      * Determine whether the user can delete the model.
-     *
-     * @param  \App\Models\User  $user
-     * @param  \App\Models\ActivityLog  $activityLog
-     * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, ActivityLog $activityLog)
+    public function delete(User $user, ActivityLog $activityLog): bool
     {
         return $user->id === $activityLog->user_id;
     }
