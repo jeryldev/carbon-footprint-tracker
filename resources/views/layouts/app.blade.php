@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Planet Protectors') }}</title>
+        <title>{{ config('app.name', 'Carbon Footprint Tracker') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,7 +31,7 @@
             @if (session('success'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                     <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm" role="alert">
-                        <div class="flex">
+                        <div class="flex flex-row items-center">
                             <div class="flex-shrink-0">
                                 <span class="text-2xl">🎉</span>
                             </div>
@@ -46,7 +46,7 @@
             @if (session('error'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-sm" role="alert">
-                        <div class="flex">
+                        <div class="flex flex-row items-center">
                             <div class="flex-shrink-0">
                                 <span class="text-2xl">🤔</span>
                             </div>
