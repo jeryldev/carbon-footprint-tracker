@@ -18,7 +18,7 @@ The application helps users:
 The project follows the required submission format:
 
 ```
-Estopace_Jeryl_CarbonFootprintTracker.zip/
+Estopace_Jeryl_CarbonFootprintTracker/
 ├── carbon-footprint-tracker/       # All PHP and web files
 │   ├── app/                        # Laravel application code
 │   ├── resources/                  # Views, CSS, JavaScript
@@ -49,70 +49,87 @@ Estopace_Jeryl_CarbonFootprintTracker.zip/
 - MySQL
 - Node.js & npm
 
-### Installation Steps
+### Step-by-Step Installation
 
-1. Extract the `carbon-footprint-tracker` folder to your web server directory
-
-2. Install PHP dependencies:
+1. **Open a terminal and navigate to the project folder**:
 
     ```bash
-    cd carbon-footprint-tracker
+    cd ~/Desktop/Estopace_Jeryl_CarbonFootprintTracker/carbon-footprint-tracker
+    ```
+
+2. **Install PHP dependencies**:
+
+    ```bash
     composer install
     ```
 
-3. Install JavaScript dependencies:
+3. **Install JavaScript dependencies**:
 
     ```bash
     npm install
     ```
 
-4. Configure the environment:
+4. **Configure the environment**:
 
     ```bash
     cp .env.example .env
     php artisan key:generate
     ```
 
-5. Set up the database:
+5. **Set up the database**:
 
-    - Create a MySQL database named `carbon_tracker`
-    - Import the SQL file from the `database` folder:
+    - Create a MySQL database named `carbon_tracker`:
 
-        ```bash
-        mysql -u username -p carbon_tracker < ../database/carbon_tracker.sql
-        ```
+    ```bash
+    mysql -u root -p -e "CREATE DATABASE carbon_tracker"
+    ```
 
-    - Or alternatively, run migrations and seed data:
+    - Import the SQL file from the database folder:
 
-        ```bash
-        php artisan migrate
-        php artisan db:seed --class=EmissionFactorSeeder
-        ```
+    ```bash
+    mysql -u root -p carbon_tracker < ../database/carbon_tracker.sql
+    ```
 
-6. Configure your `.env` file with your database credentials:
+6. **Configure your `.env` file with your database credentials**:
 
     ```
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
     DB_DATABASE=carbon_tracker
-    DB_USERNAME=your_username
-    DB_PASSWORD=your_password
+    DB_USERNAME=root or your_username
+    DB_PASSWORD= leave empty or your_password
     ```
 
-7. Build the frontend assets:
+7. **Build the frontend assets** (required for styles and JavaScript):
 
     ```bash
     npm run build
     ```
 
-8. Start the server:
+8. **Start the PHP development server**:
 
     ```bash
     php artisan serve
     ```
 
-9. Access the application at <http://localhost:8000>
+9. **Access the application** at <http://localhost:8000>
+
+## Database Setup Details
+
+The `carbon_tracker.sql` file located in the `database/` folder contains all the necessary database structure and initial data for the application:
+
+- Table structures for users, activity logs, baseline assessments, etc.
+- Scientific emission factors based on the research paper
+- Pre-defined achievements and badges
+- Example data (if included)
+
+If you prefer to set up the database manually instead of importing the SQL file, you can use Laravel migrations:
+
+```bash
+php artisan migrate
+php artisan db:seed --class=EmissionFactorSeeder
+```
 
 ## Technical Implementation
 
@@ -142,19 +159,15 @@ Where:
 - EF is the emission factor for that activity
 - GWP₁₀₀ is global warming potential
 
-## Database Structure
-
-The application uses the following main tables:
-
-- `users` - User account information
-- `baseline_assessments` - User's initial carbon footprint data
-- `activity_logs` - Daily tracking of user activities
-- `emission_factors` - Scientific emission conversion values
-- `achievements` - Gamification elements and user progress
-
 ## Demo
 
 A video demonstration of the application can be found at the YouTube link provided in the `demo.txt` file.
+
+## Troubleshooting
+
+- **Database connection issues**: Ensure your MySQL server is running and that the credentials in `.env` are correct
+- **Composer errors**: Make sure you're using PHP 8.1+ and that all required PHP extensions are enabled
+- **JavaScript/CSS not updating**: Try `npm run dev` to rebuild assets during development
 
 ## Credits
 
