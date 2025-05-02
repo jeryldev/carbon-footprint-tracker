@@ -78,10 +78,10 @@
                         </p>
                         <div class="mt-4 pt-4 border-t border-green-200 max-w-lg mx-auto">
                             <p class="text-gray-600 mb-1">
-                                Created by <span class="font-semibold">Jeryl Estopace</span> for CMSC 207 - Web Programming and Development
+                                Created by <span class="font-semibold">Jeryl D. Estopace</span> for CMSC 207 - Web Programming and Development
                             </p>
                             <p class="text-gray-500 text-sm">
-                                Based on research by Aiza C. Cortes from the University of the Philippines Cebu
+                                Final Project | University of the Philippines Open University
                             </p>
                         </div>
                     </div>

@@ -44,7 +44,7 @@
                             <x-input-label for="electricity_usage" :value="__('Electricity Usage (kWh)')" />
                             <x-text-input id="electricity_usage" class="block mt-1 w-full" type="number" name="electricity_usage" :value="old('electricity_usage')" step="0.1" min="0" />
                             <x-input-error :messages="$errors->get('electricity_usage')" class="mt-2" />
-                            <p class="text-sm text-gray-500 mt-1">Leave blank if you don't know your daily usage.</p>
+                            <p class="text-sm text-gray-500 mt-1">Leave blank if daily usage is unknown.</p>
                         </div>
 
                         <!-- Waste Generation -->
@@ -52,7 +52,7 @@
                             <x-input-label for="waste_generation" :value="__('Waste Generated (kg)')" />
                             <x-text-input id="waste_generation" class="block mt-1 w-full" type="number" name="waste_generation" :value="old('waste_generation')" step="0.1" min="0" />
                             <x-input-error :messages="$errors->get('waste_generation')" class="mt-2" />
-                            <p class="text-sm text-gray-500 mt-1">Estimate how much waste you generated today.</p>
+                            <p class="text-sm text-gray-500 mt-1">Estimate the amount of waste generated today.</p>
                         </div>
 
                         <div class="flex items-center justify-end mt-4">

@@ -26,8 +26,8 @@ class CarbonReportingService
 
         $baselineDaily = $baseline->baseline_carbon_footprint / 365;
 
-        // Get actual footprint for the period
-        $logs = $this->getLogsForPeriod($user, $period);
+        // Force fresh query to avoid stale data
+        $logs = $this->getLogsForPeriod($user->fresh(), $period);
         $actualFootprint = $logs->sum('carbon_footprint');
 
         // Calculate expected baseline for the period
@@ -61,6 +61,7 @@ class CarbonReportingService
      */
     private function getLogsForPeriod(User $user, string $period): object
     {
+        // Create a fresh query to avoid any caching issues
         $query = ActivityLog::where('user_id', $user->id);
 
         switch ($period) {
@@ -81,7 +82,7 @@ class CarbonReportingService
     private function friendlyMessage(bool $isSaving, float $savings, string $period): string
     {
         if (!$isSaving) {
-            return "Oops! You used more carbon than usual. Let's try to walk or bike more tomorrow!";
+            return "Oops! Carbon usage was higher than usual today. Try walking or biking more tomorrow!";
         }
 
         $periodText = match($period) {
@@ -94,11 +95,11 @@ class CarbonReportingService
         $savingsRounded = round($savings, 1);
 
         if ($savingsRounded > 5) {
-            return "Amazing job $periodText! You're a planet-saving superhero! 🦸";
+            return "Amazing result $periodText! A true planet-saving achievement! 🦸";
         } elseif ($savingsRounded > 1) {
-            return "Great job $periodText! The Earth is smiling because of you! 🌍";
+            return "Great progress $periodText! The Earth is smiling at these savings! 🌍";
         } else {
-            return "Good job $periodText! Every little bit helps protect our planet! 🌱";
+            return "Good effort $periodText! Every little bit helps protect our planet! 🌱";
         }
     }
 
@@ -151,7 +152,7 @@ class CarbonReportingService
             'ice_saved' => 0,
             'superhero_points' => 0,
             'days_tracked' => 0,
-            'message' => "Complete your baseline assessment to see how you're helping the planet!"
+            'message' => "Complete the baseline assessment to see the planet-saving impact!"
         ];
     }
 }

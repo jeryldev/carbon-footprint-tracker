@@ -179,7 +179,7 @@ class CarbonReportingServiceTest extends TestCase
         $this->assertEquals(0, $savings['ice_saved']);
         $this->assertEquals(0, $savings['superhero_points']);
         $this->assertEquals(1, $savings['days_tracked']);
-        $this->assertStringContainsString('Oops! You used more carbon than usual', $savings['message']);
+        $this->assertStringContainsString('Oops! Carbon usage was higher than usual today.', $savings['message']);
     }
 
     /** @test */

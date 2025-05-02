@@ -14,6 +14,10 @@ class AchievementService
      */
     public function checkAchievements(User $user): void
     {
+        // Force fresh calculation with latest data
+        $user = User::with('activityLogs', 'baselineAssessment', 'achievements')
+            ->find($user->id);
+
         $this->checkFirstActivityAchievement($user);
         $this->checkStreakAchievements($user);
         $this->checkTransportAchievements($user);
@@ -86,7 +90,7 @@ class AchievementService
         if ($user->baselineAssessment) {
             $baselineDailyFootprint = $user->baselineAssessment->baseline_carbon_footprint / 365;
         } else {
-            return; // Can't calculate without baseline
+            return;
         }
 
         $logs = $user->activityLogs()->get();
@@ -125,9 +129,6 @@ class AchievementService
                 'is_unlocked' => true,
                 'unlocked_at' => now(),
             ]);
-
-            // Here you could dispatch an event for notifications
-            // event(new AchievementUnlocked($user, $achievement));
         }
     }
 }

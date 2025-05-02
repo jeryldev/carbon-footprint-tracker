@@ -13,8 +13,8 @@
                 </h2>
 
                 <p class="text-gray-700 mb-6">
-                    Welcome to our knowledge base! Here you'll find everything you need to understand
-                    carbon footprints, how we calculate them, and how your actions can make a difference.
+                    Welcome to the knowledge base! Here we can find information about carbon footprints, how they're calculated,
+                    and how our actions can make a difference.
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
@@ -25,7 +25,7 @@
 
                     <a href="{{ route('wiki.show', 'calculations') }}" class="bg-green-50 p-5 rounded-lg hover:bg-green-100 transition">
                         <h3 class="text-lg font-semibold text-green-800 mb-2">🧮 How We Calculate</h3>
-                        <p class="text-green-700">Understand the formulas and science behind our carbon footprint calculations.</p>
+                        <p class="text-green-700">Understand the formulas and science behind the carbon footprint calculations.</p>
                     </a>
 
                     <a href="{{ route('wiki.show', 'metrics') }}" class="bg-purple-50 p-5 rounded-lg hover:bg-purple-100 transition">
@@ -45,7 +45,7 @@
 
                     <a href="{{ route('wiki.show', 'research') }}" class="bg-indigo-50 p-5 rounded-lg hover:bg-indigo-100 transition">
                         <h3 class="text-lg font-semibold text-indigo-800 mb-2">🔬 Research & References</h3>
-                        <p class="text-indigo-700">The scientific studies and papers that inform our app.</p>
+                        <p class="text-indigo-700">The scientific studies and papers that inform this app.<p>
                     </a>
                 </div>
 

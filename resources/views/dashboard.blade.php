@@ -133,13 +133,12 @@
 
                         <div class="prose max-w-none text-gray-700">
                             <p>
-                                The Carbon Footprint Tracker helps you understand how your daily activities affect our planet.
-                                By tracking what you do, you can see how you're helping save the Earth! 🌍
+                                The Carbon Footprint Tracker helps visualize how daily activities affect the planet.
+                                By tracking activities, anyone can see their contribution to saving the Earth! 🌍
                             </p>
 
                             <p class="mt-3">
-                                Our app uses real science to calculate your carbon footprint based on research by Aiza C. Cortes
-                                from the University of the Philippines Cebu.
+                                This app is built on scientific principles for calculating carbon footprints based on research by Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines: the Case of UP Cebu. Philippine Journal of Science, 151(3), 901-912.
                             </p>
 
                             <p class="mt-3">
@@ -151,11 +150,11 @@
                             </p>
 
                             <div class="mt-4 p-4 bg-green-50 rounded-lg">
-                                <h4 class="font-medium text-green-800">How You're Saving The Planet</h4>
+                                <h4 class="font-medium text-green-800">How to Help Save The Planet</h4>
                                 <p class="text-green-700">
-                                    When you walk or bike instead of riding in a car, you help reduce greenhouse gases.
-                                    Every kilogram of CO₂ you save helps protect animals, plants, and people around the world.
-                                    You're a planet-saving superhero! 🦸
+                                    Walking or biking instead of riding in a car helps reduce greenhouse gases.
+                                    Every kilogram of CO₂ saved helps protect animals, plants, and people around the world.
+                                    Everyone can be a planet-saving superhero! 🦸
                                 </p>
                             </div>
                         </div>

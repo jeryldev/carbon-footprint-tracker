@@ -101,8 +101,8 @@ class ActivityLogController extends Controller
     }
 
     /**
-        * Store a newly created resource in storage.
-        */
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -146,7 +146,7 @@ class ActivityLogController extends Controller
         // Check for achievements
         $this->achievementService->checkAchievements($user);
 
-        return redirect()->route('dashboard')
+        return redirect()->route('activity-logs.index')
             ->with('success', 'Hooray! Your planet-saving activity has been logged!');
     }
 
@@ -196,12 +196,11 @@ class ActivityLogController extends Controller
             'carbon_footprint' => $carbonFootprint,
         ]);
 
-        // Check for achievements
-        $user = $request->user();
+        // Check for achievements - force refresh user data
+        $user = $request->user()->fresh();
         $this->achievementService->checkAchievements($user);
 
-
-        return redirect()->route('activity-logs.index')
+        return redirect()->route('activity-logs.index', ['refresh' => time()])
             ->with('success', 'Your planet-saving activity has been updated! Great job!');
     }
 
@@ -212,9 +211,13 @@ class ActivityLogController extends Controller
     {
         $this->authorize('delete', $activityLog);
 
+        $user = request()->user()->fresh();
         $activityLog->delete();
 
-        return redirect()->route('activity-logs.index')
+        // Recalculate achievements after deletion
+        $this->achievementService->checkAchievements($user);
+
+        return redirect()->route('activity-logs.index', ['refresh' => time()])
             ->with('success', 'Activity log removed successfully!');
     }
 }
