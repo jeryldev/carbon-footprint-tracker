@@ -43,7 +43,7 @@ The application helps users:
 1. **Clone the repository**:
 
     ```bash
-    git clone https://github.com/your-username/carbon-footprint-tracker.git
+    git clone https://github.com/jeryldev/carbon-footprint-tracker.git
     cd carbon-footprint-tracker
     ```
 
