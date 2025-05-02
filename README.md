@@ -4,7 +4,7 @@ A web application designed to help users understand, measure, and reduce their c
 
 ## Project Overview
 
-This Carbon Footprint Tracker project was created for CMSC 207 - Web Programming and Development at the University of the Philippines Open University, aligning with the Chancellor's emphasis on sustainability initiatives.
+This Carbon Footprint Tracker project was created for CMSC 207 - Web Programming and Development at the University of the Philippines Open University.
 
 The application helps users:
 
@@ -19,16 +19,16 @@ The project follows the required submission format:
 
 ```
 Estopace_Jeryl_CarbonFootprintTracker.zip/
-├── carbon-footprint-tracker/        # All PHP and web files
-│   ├── app/             # Laravel application code
-│   ├── resources/       # Views, CSS, JavaScript
-│   ├── routes/          # Route definitions
-│   ├── config/          # Configuration files
-│   └── ...              # Other Laravel directories
-├── database/            # Database files
-│   └── carbon_tracker.sql  # SQL export file
-├── documentation.pdf    # Project documentation
-└── demo.txt             # Unlisted YouTube link to the demo video
+├── carbon-footprint-tracker/       # All PHP and web files
+│   ├── app/                        # Laravel application code
+│   ├── resources/                  # Views, CSS, JavaScript
+│   ├── routes/                     # Route definitions
+│   ├── config/                     # Configuration files
+│   └── ...                         # Other Laravel directories
+├── database/                       # Database files
+│   └── carbon_tracker.sql          # SQL export file
+├── documentation.pdf               # Project documentation
+└── demo.txt                        # Unlisted YouTube link to the demo video
 ```
 
 ## Features
@@ -155,10 +155,6 @@ The application uses the following main tables:
 ## Demo
 
 A video demonstration of the application can be found at the YouTube link provided in the `demo.txt` file.
-
-## Project Deadline
-
-This project was submitted for CMSC 207 - Web Programming and Development, with a submission deadline of May 3, 2025, 11:59 PHT.
 
 ## Credits
 
