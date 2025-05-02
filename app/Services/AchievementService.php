@@ -11,8 +11,7 @@ class AchievementService
      */
     public function checkAchievements(User $user): void
     {
-        // Force fresh calculation with latest data
-        $user = User::with('activityLogs', 'baselineAssessment', 'achievements')
+        $user = User::with(['activityLogs', 'baselineAssessment', 'achievements'])
             ->find($user->id);
 
         $this->checkFirstActivityAchievement($user);
@@ -38,20 +37,16 @@ class AchievementService
      */
     private function checkStreakAchievements(User $user): void
     {
-        $logs = $user->activityLogs()
-            ->orderBy('date', 'desc')
-            ->get()
-            ->groupBy(function ($log) {
-                return $log->date->format('Y-m-d');
-            });
+        $uniqueDaysCount = $user->activityLogs()
+            ->select('date')
+            ->distinct()
+            ->count();
 
-        $uniqueDays = $logs->count();
-
-        if ($uniqueDays >= 7) {
+        if ($uniqueDaysCount >= 7) {
             $this->unlockAchievement($user, 'Eco Warrior');
         }
 
-        if ($uniqueDays >= 30) {
+        if ($uniqueDaysCount >= 30) {
             $this->unlockAchievement($user, 'Climate Champion');
         }
     }
@@ -83,22 +78,30 @@ class AchievementService
      */
     private function checkEmissionAchievements(User $user): void
     {
-        $baselineDailyFootprint = 0;
-        if ($user->baselineAssessment) {
-            $baselineDailyFootprint = $user->baselineAssessment->baseline_carbon_footprint / 365;
-        } else {
+        if (!$user->baselineAssessment || !$user->baselineAssessment->baseline_carbon_footprint) {
             return;
         }
 
+        $baselineYearlyFootprint = $user->baselineAssessment->baseline_carbon_footprint;
+        $baselineDailyFootprint = $baselineYearlyFootprint / 365;
         $logs = $user->activityLogs()->get();
         $totalSavedEmissions = 0;
         $totalTreeDays = 0;
 
         foreach ($logs as $log) {
-            $saving = $baselineDailyFootprint - $log->carbon_footprint;
+
+            $expectedFootprint = $this->calculateExpectedDailyFootprint(
+                $user->baselineAssessment->typical_commute_type,
+                $log->transport_distance,
+                $baselineDailyFootprint
+            );
+
+            $saving = $expectedFootprint - $log->carbon_footprint;
+
             if ($saving > 0) {
                 $totalSavedEmissions += $saving;
-                $totalTreeDays += $saving / 0.06; // A tree absorbs ~60g CO2 per day
+                $treeDaysForThisLog = $saving / 0.06;
+                $totalTreeDays += $treeDaysForThisLog;
             }
         }
 
@@ -111,19 +114,39 @@ class AchievementService
         }
     }
 
+    /**
+     * Calculate expected footprint using baseline for transport but actual distance
+     */
+    private function calculateExpectedDailyFootprint(string $baselineTransportType, float $actualDistance, float $baselineDailyTotal): float
+    {
+        $transportFactor = \App\Models\EmissionFactor::where('category', 'transportation')
+            ->where('type', $baselineTransportType)
+            ->first();
+
+        if (!$transportFactor) {
+            $transportFactor = \App\Models\EmissionFactor::where('category', 'transportation')
+                ->where('type', 'public_transit')
+                ->first();
+        }
+
+        $expectedTransportEmissions = $actualDistance * $transportFactor->value;
+        $baselineNonTransport = $baselineDailyTotal * 0.3;
+
+        return $expectedTransportEmissions + $baselineNonTransport;
+    }
+
+    /**
+     * Unlock an achievement if not already unlocked
+     */
     private function unlockAchievement(User $user, string $achievementName): void
     {
-        // Find the achievement regardless of unlock status
         $achievement = $user->achievements()
             ->where('name', $achievementName)
             ->first();
 
-        // If found and not already unlocked, unlock it
-        if ($achievement && !$achievement->is_unlocked) {
-            $achievement->update([
-                'is_unlocked' => true,
-                'unlocked_at' => now(),
-            ]);
-        }
+        $achievement->update([
+            'is_unlocked' => true,
+            'unlocked_at' => now(),
+        ]);
     }
 }

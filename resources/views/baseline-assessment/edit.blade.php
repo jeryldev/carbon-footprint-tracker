@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Update Your Planet Protector Profile') }}
+            {{ __('Update Your Carbon Footprint Tracker Profile') }}
         </h2>
     </x-slot>
 
