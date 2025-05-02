@@ -1,44 +1,33 @@
-# Carbon Footprint Tracker - CMSC 207 Final Project
+# Carbon Footprint Tracker
 
-A web application designed to help users understand, measure, and reduce their carbon footprint through tracking, visualization, and actionable recommendations.
+A web application designed to help users understand, measure, and reduce their carbon footprint through tracking, visualization, and gamification.
 
 ## Project Overview
 
-This Carbon Footprint Tracker project was created for CMSC 207 - Web Programming and Development at the University of the Philippines Open University.
+This Carbon Footprint Tracker project was created for CMSC 207 - Web Programming and Development at the University of the Philippines Open University. The application transforms complex carbon footprint calculations into an engaging user experience that promotes sustainable behavior.
 
 The application helps users:
 
 - Track their daily activities that contribute to carbon emissions
 - Calculate their carbon footprint using scientific emission factors
-- View historical data and progress over time
-- Earn achievements and receive personalized recommendations
-
-## Project Structure
-
-The project follows the required submission format:
-
-```
-Estopace_Jeryl_CarbonFootprintTracker/
-├── carbon-footprint-tracker/       # All PHP and web files
-│   ├── app/                        # Laravel application code
-│   ├── resources/                  # Views, CSS, JavaScript
-│   ├── routes/                     # Route definitions
-│   ├── config/                     # Configuration files
-│   └── ...                         # Other Laravel directories
-├── database/                       # Database files
-│   └── carbon_tracker.sql          # SQL export file
-├── documentation.pdf               # Project documentation
-└── demo.txt                        # Unlisted YouTube link to the demo video
-```
+- Visualize their progress and environmental impact
+- Earn achievements for sustainable choices
 
 ## Features
 
-- **User Authentication**: Registration, login, profile management
-- **Baseline Assessment**: Measures typical transportation, electricity and waste habits
+- **User Authentication**: Complete registration and login system with profile management
+- **Baseline Assessment**: Establishes users' typical carbon-producing habits as a reference point
 - **Activity Tracking**: Daily logging of transportation, electricity usage, and waste generation
-- **Scientific Calculations**: Based on research from UP Cebu about greenhouse gas emissions
-- **Dashboard**: Visual representation of carbon savings and impact
-- **Gamification**: Achievements and badges to motivate sustainable choices
+- **Dashboard**: Visual representation of carbon savings with relatable metrics (tree days, car kilometers)
+- **Achievement System**: Gamification elements to motivate eco-friendly choices
+- **Knowledge Base**: Educational content about carbon footprints and calculation methodologies
+
+## Technology Stack
+
+- **Backend**: PHP 8.1+ with Laravel framework
+- **Database**: MySQL
+- **Frontend**: HTML, CSS (Tailwind CSS), JavaScript (Alpine.js)
+- **Authentication**: Laravel's built-in authentication system
 
 ## Installation & Setup
 
@@ -49,12 +38,13 @@ Estopace_Jeryl_CarbonFootprintTracker/
 - MySQL
 - Node.js & npm
 
-### Step-by-Step Installation
+### Installation Steps
 
-1. **Open a terminal and navigate to the project folder**:
+1. **Clone the repository**:
 
     ```bash
-    cd ~/Desktop/Estopace_Jeryl_CarbonFootprintTracker/carbon-footprint-tracker
+    git clone https://github.com/your-username/carbon-footprint-tracker.git
+    cd carbon-footprint-tracker
     ```
 
 2. **Install PHP dependencies**:
@@ -69,7 +59,7 @@ Estopace_Jeryl_CarbonFootprintTracker/
     npm install
     ```
 
-4. **Configure the environment**:
+4. **Configure environment**:
 
     ```bash
     cp .env.example .env
@@ -78,36 +68,33 @@ Estopace_Jeryl_CarbonFootprintTracker/
 
 5. **Set up the database**:
 
-    - Create a MySQL database named `carbon_tracker`:
-
     ```bash
+    # Create a database in MySQL
     mysql -u root -p -e "CREATE DATABASE carbon_tracker"
+
+    # Run migrations and seed data
+    php artisan migrate
+    php artisan db:seed --class=EmissionFactorSeeder
     ```
 
-    - Import the SQL file from the database folder:
-
-    ```bash
-    mysql -u root -p carbon_tracker < ../database/carbon_tracker.sql
-    ```
-
-6. **Configure your `.env` file with your database credentials**:
+6. **Configure database in .env**:
 
     ```
     DB_CONNECTION=mysql
     DB_HOST=127.0.0.1
     DB_PORT=3306
     DB_DATABASE=carbon_tracker
-    DB_USERNAME=root or your_username
-    DB_PASSWORD= leave empty or your_password
+    DB_USERNAME=your_username
+    DB_PASSWORD=your_password
     ```
 
-7. **Build the frontend assets** (required for styles and JavaScript):
+7. **Build frontend assets**:
 
     ```bash
     npm run build
     ```
 
-8. **Start the PHP development server**:
+8. **Start the development server**:
 
     ```bash
     php artisan serve
@@ -115,38 +102,9 @@ Estopace_Jeryl_CarbonFootprintTracker/
 
 9. **Access the application** at <http://localhost:8000>
 
-## Database Setup Details
+## Scientific Foundation
 
-The `carbon_tracker.sql` file located in the `database/` folder contains all the necessary database structure and initial data for the application:
-
-- Table structures for users, activity logs, baseline assessments, etc.
-- Scientific emission factors based on the research paper
-- Pre-defined achievements and badges
-- Example data (if included)
-
-If you prefer to set up the database manually instead of importing the SQL file, you can use Laravel migrations:
-
-```bash
-php artisan migrate
-php artisan db:seed --class=EmissionFactorSeeder
-```
-
-## Technical Implementation
-
-### Technology Stack
-
-- **Backend**: PHP with Laravel framework
-- **Database**: MySQL
-- **Frontend**: HTML, CSS (Tailwind CSS), JavaScript
-- **Authentication**: Laravel's built-in authentication system
-
-### Scientific Foundation
-
-All carbon footprint calculations are based on emission factors from:
-
-Cortes, A. C. (2022). Greenhouse Gas Emissions Inventory of a University in the Philippines: the Case of UP Cebu. _Philippine Journal of Science, 151_(3), 901-912.
-
-The application uses the formula:
+All carbon footprint calculations are based on emission factors from research by Aiza C. Cortes at the University of the Philippines Cebu. The application implements the formula:
 
 ```
 CE = AD × EF × GWP₁₀₀
@@ -159,15 +117,11 @@ Where:
 - EF is the emission factor for that activity
 - GWP₁₀₀ is global warming potential
 
-## Demo
-
-A video demonstration of the application can be found at the YouTube link provided in the `demo.txt` file.
-
 ## Troubleshooting
 
-- **Database connection issues**: Ensure your MySQL server is running and that the credentials in `.env` are correct
-- **Composer errors**: Make sure you're using PHP 8.1+ and that all required PHP extensions are enabled
-- **JavaScript/CSS not updating**: Try `npm run dev` to rebuild assets during development
+- **Database connection issues**: Ensure your MySQL server is running and credentials are correct
+- **Composer errors**: Verify you're using PHP 8.1+ with required extensions
+- **JavaScript/CSS not updating**: Run `npm run dev` to rebuild assets during development
 
 ## Credits
 
