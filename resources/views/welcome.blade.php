@@ -59,9 +59,9 @@
                     <div class="grid grid-cols-1 md:grid-cols-1 gap-6 lg:gap-8">
                         <div class="scale-100 p-6 bg-white dark:bg-gray-800/50 dark:bg-gradient-to-bl from-gray-700/50 via-transparent dark:ring-1 dark:ring-inset dark:ring-white/5 rounded-lg shadow-2xl shadow-gray-500/20 dark:shadow-none flex motion-safe:hover:scale-[1.01] transition-all duration-250 focus:outline focus:outline-2 focus:outline-green-500">
                             <div class="text-center w-full">
-                                <h1 class="text-4xl md:text-5xl font-extrabold text-green-600 mb-4">Welcome to Planet Protectors!</h1>
+                                <h1 class="text-4xl md:text-5xl font-extrabold text-green-600 mb-4">Welcome Planet Protectors!</h1>
                                 <div class="mt-4 text-xl text-gray-700 leading-relaxed space-y-4">
-                                    <p>Join our team of planet heroes and help save the Earth! 🌎</p>
+                                    <p>Join our team of planet protectors and help save the Earth! 🌎</p>
                                     <p>Track your daily activities, see how much carbon you're saving, and earn special badges!</p>
                                 </div>
 
@@ -101,7 +101,7 @@
                 <div class="flex justify-center mt-16 px-0 sm:items-center sm:justify-between">
                     <div class="text-center text-sm text-gray-500 sm:text-left">
                         <div class="flex items-center gap-4">
-                            <div>Based on research by Aiza C. Cortes, University of the Philippines Cebu</div>
+                            <div>Created by Jeryl D. Estopace for the final project in CMSC 207 - Web Programming and Development</div>
                         </div>
                     </div>
 

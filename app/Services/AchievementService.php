@@ -2,10 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\Achievement;
-use App\Models\ActivityLog;
 use App\Models\User;
-use Carbon\Carbon;
 
 class AchievementService
 {
@@ -14,6 +11,10 @@ class AchievementService
      */
     public function checkAchievements(User $user): void
     {
+        // Force fresh calculation with latest data
+        $user = User::with('activityLogs', 'baselineAssessment', 'achievements')
+            ->find($user->id);
+
         $this->checkFirstActivityAchievement($user);
         $this->checkStreakAchievements($user);
         $this->checkTransportAchievements($user);
@@ -86,7 +87,7 @@ class AchievementService
         if ($user->baselineAssessment) {
             $baselineDailyFootprint = $user->baselineAssessment->baseline_carbon_footprint / 365;
         } else {
-            return; // Can't calculate without baseline
+            return;
         }
 
         $logs = $user->activityLogs()->get();
@@ -110,24 +111,19 @@ class AchievementService
         }
     }
 
-    /**
-     * Unlock an achievement for a user
-     */
     private function unlockAchievement(User $user, string $achievementName): void
     {
+        // Find the achievement regardless of unlock status
         $achievement = $user->achievements()
             ->where('name', $achievementName)
-            ->where('is_unlocked', false)
             ->first();
 
-        if ($achievement) {
+        // If found and not already unlocked, unlock it
+        if ($achievement && !$achievement->is_unlocked) {
             $achievement->update([
                 'is_unlocked' => true,
                 'unlocked_at' => now(),
             ]);
-
-            // Here you could dispatch an event for notifications
-            // event(new AchievementUnlocked($user, $achievement));
         }
     }
 }

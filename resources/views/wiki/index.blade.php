@@ -25,7 +25,7 @@
 
                     <a href="{{ route('wiki.show', 'calculations') }}" class="bg-green-50 p-5 rounded-lg hover:bg-green-100 transition">
                         <h3 class="text-lg font-semibold text-green-800 mb-2">🧮 How We Calculate</h3>
-                        <p class="text-green-700">Understand the formulas and science behind our carbon footprint calculations.</p>
+                        <p class="text-green-700">Understand how we compare your actual activities to your baseline habits to measure your real environmental impact.</p>
                     </a>
 
                     <a href="{{ route('wiki.show', 'metrics') }}" class="bg-purple-50 p-5 rounded-lg hover:bg-purple-100 transition">
@@ -56,6 +56,7 @@
                         <li>1 tree absorbs about 22kg of CO₂ per year (0.06kg per day)</li>
                         <li>Car emissions average about 0.21kg CO₂ per kilometer</li>
                         <li>1kg of CO₂ saved helps prevent approximately 3kg of arctic ice from melting</li>
+                        <li>Our advanced calculator compares your actual activities with your baseline habits for accurate impact measurement</li>
                     </ul>
                 </div>
             </div>

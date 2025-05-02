@@ -3,12 +3,20 @@
 namespace App\Services;
 
 use App\Models\ActivityLog;
+use App\Models\EmissionFactor;
 use App\Models\BaselineAssessment;
 use App\Models\User;
 use Carbon\Carbon;
 
 class CarbonReportingService
 {
+    protected $calculationService;
+
+    public function __construct(CarbonCalculationService $calculationService)
+    {
+        $this->calculationService = $calculationService;
+    }
+
     /**
      * Get carbon savings for a time period
      *
@@ -18,27 +26,24 @@ class CarbonReportingService
      */
     public function getSavings(User $user, string $period = 'today'): array
     {
-        // Get baseline daily value
+        // Get baseline assessment
         $baseline = $user->baselineAssessment;
         if (!$baseline || !$baseline->baseline_carbon_footprint) {
             return $this->noBaselineResponse();
         }
 
-        $baselineDaily = $baseline->baseline_carbon_footprint / 365;
+        // Force fresh query to avoid stale data
+        $logs = $this->getLogsForPeriod($user->fresh(), $period);
 
-        // Get actual footprint for the period
-        $logs = $this->getLogsForPeriod($user, $period);
+        if ($logs->isEmpty()) {
+            return $this->noActivityResponse($period);
+        }
+
+        // Calculate actual footprint
         $actualFootprint = $logs->sum('carbon_footprint');
 
-        // Calculate expected baseline for the period
-        $days = match($period) {
-            'today' => 1,
-            'week' => 7,
-            'month' => 30,
-            default => 1,
-        };
-
-        $expectedFootprint = $baselineDaily * $days;
+        // Calculate what the footprint would have been using baseline patterns
+        $expectedFootprint = $this->calculateExpectedFootprint($logs, $baseline);
 
         // Calculate savings
         $savings = $expectedFootprint - $actualFootprint;
@@ -57,10 +62,55 @@ class CarbonReportingService
     }
 
     /**
+     * Calculate the expected footprint if the user had used their baseline transportation
+     * for the actual distances they traveled
+     *
+     * @param \Illuminate\Support\Collection $logs
+     * @param BaselineAssessment $baseline
+     * @return float
+     */
+    private function calculateExpectedFootprint($logs, $baseline): float
+    {
+        $expectedFootprint = 0;
+
+        // Get emission factors
+        $transportFactor = EmissionFactor::where('category', 'transportation')
+            ->where('type', $baseline->typical_commute_type)
+            ->first()->value;
+
+        $electricityFactor = EmissionFactor::where('category', 'electricity')
+            ->where('type', 'grid')
+            ->first()->value;
+
+        $wasteFactor = EmissionFactor::where('category', 'waste')
+            ->where('type', 'general')
+            ->first()->value;
+
+        // Calculate baseline daily values
+        $baselineElectricityDaily = ($baseline->average_electricity_usage * 12) / 365;
+        $baselineWasteDaily = $baseline->average_waste_generation;
+
+        foreach ($logs as $log) {
+            // Calculate baseline transport emissions for the actual traveled distance
+            $transportEmission = $log->transport_distance * $transportFactor;
+
+            // Add daily electricity and waste from baseline
+            $electricityEmission = $baselineElectricityDaily * $electricityFactor;
+            $wasteEmission = $baselineWasteDaily * $wasteFactor;
+
+            $logExpectedFootprint = $transportEmission + $electricityEmission + $wasteEmission;
+            $expectedFootprint += $logExpectedFootprint;
+        }
+
+        return $expectedFootprint;
+    }
+
+    /**
      * Get activity logs for the specified period
      */
     private function getLogsForPeriod(User $user, string $period): object
     {
+        // Create a fresh query to avoid any caching issues
         $query = ActivityLog::where('user_id', $user->id);
 
         switch ($period) {
@@ -81,7 +131,7 @@ class CarbonReportingService
     private function friendlyMessage(bool $isSaving, float $savings, string $period): string
     {
         if (!$isSaving) {
-            return "Oops! You used more carbon than usual. Let's try to walk or bike more tomorrow!";
+            return "Oops! Carbon usage was higher than usual during this period. Try walking or biking more tomorrow!";
         }
 
         $periodText = match($period) {
@@ -93,12 +143,12 @@ class CarbonReportingService
 
         $savingsRounded = round($savings, 1);
 
-        if ($savingsRounded > 5) {
-            return "Amazing job $periodText! You're a planet-saving superhero! 🦸";
-        } elseif ($savingsRounded > 1) {
-            return "Great job $periodText! The Earth is smiling because of you! 🌍";
+        if ($savingsRounded > 20) {
+            return "Amazing result $periodText! A true planet-saving achievement! 🦸";
+        } elseif ($savingsRounded > 5) {
+            return "Great progress $periodText! The Earth is smiling at these savings! 🌍";
         } else {
-            return "Good job $periodText! Every little bit helps protect our planet! 🌱";
+            return "Good effort $periodText! Every little bit helps protect our planet! 🌱";
         }
     }
 
@@ -151,7 +201,31 @@ class CarbonReportingService
             'ice_saved' => 0,
             'superhero_points' => 0,
             'days_tracked' => 0,
-            'message' => "Complete your baseline assessment to see how you're helping the planet!"
+            'message' => "Complete your baseline assessment to see your planet-saving impact!"
+        ];
+    }
+
+    /**
+     * Response when user has no activity logs in the period
+     */
+    private function noActivityResponse(string $period): array
+    {
+        $periodText = match($period) {
+            'today' => 'today',
+            'week' => 'this week',
+            'month' => 'this month',
+            default => 'today',
+        };
+
+        return [
+            'is_saving' => null,
+            'savings' => 0,
+            'trees_saved' => 0,
+            'car_kilometers' => 0,
+            'ice_saved' => 0,
+            'superhero_points' => 0,
+            'days_tracked' => 0,
+            'message' => "No activity logs for $periodText yet. Start tracking to see your impact!"
         ];
     }
 }

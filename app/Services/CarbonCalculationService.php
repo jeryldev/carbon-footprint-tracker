@@ -82,4 +82,26 @@ class CarbonCalculationService
 
         return $transportEmission + $electricityEmission + $wasteEmission;
     }
+
+    /**
+     * Calculate what the carbon footprint would be using baseline transportation
+     *
+     * @param string $baselineTransportType
+     * @param float $distance
+     * @param float $electricityUsage
+     * @param float $wasteGeneration
+     * @return float Expected carbon footprint in kg CO2e
+     */
+    public function calculateBaselineFootprint(
+        string $baselineTransportType,
+        float $distance,
+        float $electricityUsage = 0,
+        float $wasteGeneration = 0
+    ): float {
+        $transportEmission = $this->calculateTransportEmission($baselineTransportType, $distance);
+        $electricityEmission = $this->calculateElectricityEmission($electricityUsage);
+        $wasteEmission = $this->calculateWasteEmission($wasteGeneration);
+
+        return $transportEmission + $electricityEmission + $wasteEmission;
+    }
 }

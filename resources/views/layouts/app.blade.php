@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Planet Protectors') }}</title>
+        <title>{{ config('app.name', 'Carbon Footprint Tracker') }}</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -31,7 +31,7 @@
             @if (session('success'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                     <div class="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 rounded-md shadow-sm" role="alert">
-                        <div class="flex">
+                        <div class="flex flex-row items-center">
                             <div class="flex-shrink-0">
                                 <span class="text-2xl">🎉</span>
                             </div>
@@ -46,7 +46,7 @@
             @if (session('error'))
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
                     <div class="bg-red-100 border-l-4 border-red-500 text-red-700 p-4 rounded-md shadow-sm" role="alert">
-                        <div class="flex">
+                        <div class="flex flex-row items-center">
                             <div class="flex-shrink-0">
                                 <span class="text-2xl">🤔</span>
                             </div>
@@ -78,9 +78,12 @@
                         </p>
                         <div class="mt-4 pt-4 border-t border-green-200 max-w-lg mx-auto">
                             <p class="text-gray-600 mb-1">
-                                Created by <span class="font-semibold">Jeryl Estopace</span> for CMSC 207 - Web Programming and Development
+                                Carbon Footprint Tracker | CMSC 207 Final Project
                             </p>
                             <p class="text-gray-500 text-sm">
+                                Created by <span class="font-semibold">Jeryl D. Estopace</span> | University of the Philippines Open University
+                            </p>
+                            <p class="text-gray-500 text-xs mt-2">
                                 Based on research by Aiza C. Cortes from the University of the Philippines Cebu
                             </p>
                         </div>

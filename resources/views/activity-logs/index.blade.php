@@ -94,48 +94,76 @@
                         </h3>
 
                         @if($daysWithLogs > 0)
-                            <div class="grid grid-cols-3 gap-4">
-                                <div class="text-center p-3 bg-green-50 rounded-lg">
+                            <div class="grid grid-cols-3 gap-4 mb-6">
+                                <div class="text-center p-3 bg-green-50 rounded-lg group relative">
                                     <div class="text-3xl mb-1">🌳</div>
                                     <div class="text-xl font-bold text-green-800">{{ $treeDays }}</div>
                                     <div class="text-sm text-green-600">Tree Days</div>
+                                    <!-- Tooltip positioned below -->
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-10 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        Each tree absorbs about 0.06 kg CO₂ per day. Your savings equal {{ $treeDays }} tree days!
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
 
-                                <div class="text-center p-3 bg-cyan-50 rounded-lg">
+                                <div class="text-center p-3 bg-cyan-50 rounded-lg group relative">
                                     <div class="text-3xl mb-1">❄️</div>
                                     <div class="text-xl font-bold text-cyan-800">{{ $iceSaved }}</div>
                                     <div class="text-sm text-cyan-600">kg Ice Saved</div>
+                                    <!-- Tooltip positioned below -->
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-10 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        For every kg of CO₂ saved, about 3kg of Arctic ice is preserved from melting.
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
 
-                                <div class="text-center p-3 bg-purple-50 rounded-lg">
+                                <div class="text-center p-3 bg-purple-50 rounded-lg group relative">
                                     <div class="text-3xl mb-1">⚡</div>
                                     <div class="text-xl font-bold text-purple-800">{{ $heroPoints }}</div>
                                     <div class="text-sm text-purple-600">Hero Points</div>
+                                    <!-- Tooltip positioned below -->
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-10 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        You earn 10 Hero Points for each kg of CO₂ saved, plus bonus points for achievements!
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="mt-4">
-                                @if($daysWithLogs >= 20)
-                                    <div class="flex items-center mb-2">
-                                        <span class="text-2xl mr-2">🏅</span>
-                                        <span class="text-lg font-medium">Super Logger Badge</span>
-                                    </div>
-                                @endif
-
-                                @if($isSaving && $savingsAmount > 10)
-                                    <div class="flex items-center mb-2">
-                                        <span class="text-2xl mr-2">🌟</span>
-                                        <span class="text-lg font-medium">Carbon Crusher Badge</span>
-                                    </div>
-                                @endif
-
-                                @if($treeDays > 50)
-                                    <div class="flex items-center">
-                                        <span class="text-2xl mr-2">🌱</span>
-                                        <span class="text-lg font-medium">Forest Friend Badge</span>
-                                    </div>
-                                @endif
+                            <!-- Explanation Box - Simplified -->
+                            <div class="bg-gray-50 p-4 rounded-lg mb-6">
+                                <p class="text-gray-600 text-sm">
+                                    <strong>How are savings calculated?</strong> We compare your actual footprint with what it would have been using your baseline transportation mode ({{ ucfirst(str_replace('_', ' ', $baseline->typical_commute_type ?? 'unknown')) }}).
+                                </p>
                             </div>
+
+                            <!-- Earned Badges -->
+                            <h4 class="font-medium text-gray-900 mb-3">Earned Badges</h4>
+
+                            @if($unlockedAchievements->isEmpty())
+                                <p class="text-gray-500 italic">Keep tracking your activities to earn badges!</p>
+                            @else
+                                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                    @foreach($unlockedAchievements as $achievement)
+                                        <div class="flex items-center p-3 bg-green-50 rounded-lg group relative">
+                                            <span class="text-2xl mr-3">{{ $achievement->icon }}</span>
+                                            <div>
+                                                <div class="font-bold text-green-800">{{ $achievement->name }}</div>
+                                                <div class="text-xs text-green-600">{{ $achievement->description }}</div>
+                                                @if($achievement->unlocked_at)
+                                                    <div class="text-xs text-gray-500 mt-1">Unlocked: {{ $achievement->unlocked_at->format('M d, Y') }}</div>
+                                                @endif
+                                            </div>
+                                            <!-- Tooltip positioned below -->
+                                            <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-10 w-64 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-1 top-full">
+                                                <strong>{{ $achievement->name }}:</strong> {{ $achievement->description }}
+                                                <br>
+                                                <strong>Reward:</strong> {{ $achievement->points }} Hero Points
+                                                <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            @endif
                         @else
                             <div class="text-center py-8">
                                 <div class="text-5xl mb-3">🌱</div>

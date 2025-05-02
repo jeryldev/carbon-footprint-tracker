@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Planet Hero Dashboard') }}
+            {{ __('Planet Protector Dashboard') }}
         </h2>
     </x-slot>
 
@@ -25,7 +25,7 @@
                 </div>
             @endif
 
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 mb-6">
+            <div class="bg-white shadow-sm sm:rounded-lg p-4 mb-6">
                 <form action="{{ route('dashboard') }}" method="GET" class="flex justify-between items-center">
                     <div class="text-gray-700 font-medium">I want to see my planet-saving power for:</div>
 
@@ -50,7 +50,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mb-6">
+                    <div class="bg-white shadow-sm sm:rounded-lg p-6 mb-6">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-xl font-bold text-gray-900">Planet Saving Power</h3>
 
@@ -93,28 +93,44 @@
                             </div>
 
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                                <div class="text-center p-4 bg-green-50 rounded-lg">
+                                <div class="text-center p-4 bg-green-50 rounded-lg group relative">
                                     <div class="text-4xl mb-2">🌳</div>
                                     <div class="text-2xl font-bold text-green-800">{{ $savings['trees_saved'] }}</div>
                                     <div class="text-sm text-green-600">Tree Days</div>
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-50 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        Each tree absorbs about 0.06 kg CO₂ per day. Your savings equal {{ $savings['trees_saved'] }} tree days!
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
 
-                                <div class="text-center p-4 bg-blue-50 rounded-lg">
+                                <div class="text-center p-4 bg-blue-50 rounded-lg group relative">
                                     <div class="text-4xl mb-2">🚗</div>
                                     <div class="text-2xl font-bold text-blue-800">{{ $savings['car_kilometers'] }}</div>
                                     <div class="text-sm text-blue-600">Car Kilometers</div>
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-50 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        Equivalent to the CO₂ emitted by a car driving {{ $savings['car_kilometers'] }} kilometers.
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
 
-                                <div class="text-center p-4 bg-cyan-50 rounded-lg">
+                                <div class="text-center p-4 bg-cyan-50 rounded-lg group relative">
                                     <div class="text-4xl mb-2">❄️</div>
                                     <div class="text-2xl font-bold text-cyan-800">{{ $savings['ice_saved'] }}</div>
                                     <div class="text-sm text-cyan-600">kg Ice Saved</div>
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-50 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        For every kg of CO₂ saved, about 3kg of Arctic ice is preserved from melting.
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
 
-                                <div class="text-center p-4 bg-purple-50 rounded-lg">
+                                <div class="text-center p-4 bg-purple-50 rounded-lg group relative">
                                     <div class="text-4xl mb-2">⚡</div>
                                     <div class="text-2xl font-bold text-purple-800">{{ $savings['superhero_points'] }}</div>
                                     <div class="text-sm text-purple-600">Hero Points</div>
+                                    <div class="opacity-0 group-hover:opacity-100 duration-300 absolute z-50 w-48 p-3 text-sm rounded-lg shadow-lg bg-white text-gray-600 left-1/2 transform -translate-x-1/2 mt-2 top-full">
+                                        You earn 10 Hero Points for each kg of CO₂ saved, plus bonus points for achievements!
+                                        <div class="absolute -top-2 left-1/2 transform -translate-x-1/2 rotate-45 w-2 h-2 bg-white"></div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -128,18 +144,17 @@
                 </div>
 
                 <div>
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mb-6">
+                    <div class="bg-white shadow-sm sm:rounded-lg p-6 mb-6">
                         <h3 class="text-lg font-semibold text-gray-900 mb-4">About Carbon Footprint Tracker</h3>
 
                         <div class="prose max-w-none text-gray-700">
                             <p>
-                                The Carbon Footprint Tracker helps you understand how your daily activities affect our planet.
-                                By tracking what you do, you can see how you're helping save the Earth! 🌍
+                                The Carbon Footprint Tracker helps visualize how daily activities affect the planet.
+                                By tracking activities, anyone can see their contribution to saving the Earth! 🌍
                             </p>
 
                             <p class="mt-3">
-                                Our app uses real science to calculate your carbon footprint based on research by Aiza C. Cortes
-                                from the University of the Philippines Cebu.
+                                This app uses our advanced calculation system that compares your actual activities with your baseline habits for accurate impact measurement. It's built on scientific principles from research by Aiza C. Cortes at the University of the Philippines Cebu.
                             </p>
 
                             <p class="mt-3">
@@ -151,17 +166,17 @@
                             </p>
 
                             <div class="mt-4 p-4 bg-green-50 rounded-lg">
-                                <h4 class="font-medium text-green-800">How You're Saving The Planet</h4>
+                                <h4 class="font-medium text-green-800">How to Help Save The Planet</h4>
                                 <p class="text-green-700">
-                                    When you walk or bike instead of riding in a car, you help reduce greenhouse gases.
-                                    Every kilogram of CO₂ you save helps protect animals, plants, and people around the world.
-                                    You're a planet-saving superhero! 🦸
+                                    Walking or biking instead of riding in a car helps reduce greenhouse gases.
+                                    Every kilogram of CO₂ saved helps protect animals, plants, and people around the world.
+                                    Everyone can be a planet-saving superhero! 🦸
                                 </p>
                             </div>
                         </div>
                     </div>
 
-                    <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mb-6">
+                    <div class="bg-white shadow-sm sm:rounded-lg p-6 mb-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-900">My Recent Activity</h3>
                             <a href="{{ route('activity-logs.index') }}" class="text-sm text-blue-600 hover:underline">View all</a>

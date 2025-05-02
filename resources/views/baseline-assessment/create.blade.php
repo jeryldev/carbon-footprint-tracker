@@ -14,8 +14,8 @@
                             <span class="text-3xl mr-2">🌎</span> Welcome, Planet Protector!
                         </h3>
                         <p class="text-green-700">
-                            Before you start your adventure, we need to learn about your usual daily activities.
-                            This will help us measure how much you're helping the planet each day!
+                            Before you start your adventure, we need to understand your usual daily activities.
+                            This baseline helps us measure how much carbon you're saving when you make eco-friendly choices!
                         </p>
                     </div>
 
