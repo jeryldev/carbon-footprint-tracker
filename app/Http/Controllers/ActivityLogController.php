@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\ActivityLog;
 use App\Models\EmissionFactor;
 use App\Services\CarbonCalculationService;
+use App\Services\CarbonReportingService;
 use App\Services\AchievementService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -20,23 +22,27 @@ class ActivityLogController extends Controller
         $this->carbonCalculationService = $carbonCalculationService;
         $this->achievementService = $achievementService;
     }
-
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $user = $request->user();
+        // Get the user with fresh data
+        $user = User::with(['activityLogs', 'baselineAssessment', 'achievements'])
+            ->find($request->user()->id);
+
         $month = $request->query('month') ? Carbon::parse($request->query('month')) : Carbon::now();
 
+        // Get activity logs for the selected month
         $activityLogs = $user->activityLogs()
             ->whereYear('date', $month->year)
             ->whereMonth('date', $month->month)
             ->orderBy('date', 'desc')
             ->get();
+
+        // Get available months for the selector
         $months = $user->activityLogs()
-            ->select(DB::raw('EXTRACT(YEAR FROM date) as year, EXTRACT(MONTH FROM date) as month'))
-            ->distinct()
+            ->select(DB::raw('DISTINCT EXTRACT(YEAR FROM date) as year, EXTRACT(MONTH FROM date) as month'))
             ->orderBy('year', 'desc')
             ->orderBy('month', 'desc')
             ->get()
@@ -55,18 +61,30 @@ class ActivityLogController extends Controller
         $daysWithLogs = $activityLogs->pluck('date')->unique()->count();
         $dailyAverage = $daysWithLogs > 0 ? $totalFootprint / $daysWithLogs : 0;
 
-        // Calculate baseline comparison
-        $baselineDailyFootprint = 0;
-        if ($user->baselineAssessment) {
-            $baselineDailyFootprint = $user->baselineAssessment->baseline_carbon_footprint / 365;
-        }
-        $comparisonToBaseline = $baselineDailyFootprint - $dailyAverage;
-        $isSaving = $comparisonToBaseline > 0;
+        // Initialize savings calculations
+        $isSaving = false;
+        $savingsAmount = 0;
+        $treeDays = 0;
+        $iceSaved = 0;
+        $heroPoints = 0;
 
-        // Calculate stats for fun metrics
-        $treeDays = max(0, round($comparisonToBaseline * $daysWithLogs / 0.06));
-        $iceSaved = max(0, round($comparisonToBaseline * $daysWithLogs * 3));
-        $heroPoints = max(0, round($comparisonToBaseline * $daysWithLogs * 10));
+        // Check if user has a baseline assessment
+        if ($user->baselineAssessment) {
+            // Use carbon reporting service to calculate savings
+            $carbonReportingService = app(CarbonReportingService::class);
+            $savings = $carbonReportingService->getSavings($user, 'month');
+
+            $isSaving = $savings['is_saving'];
+            $savingsAmount = $savings['savings'];
+            $treeDays = $savings['trees_saved'];
+            $iceSaved = $savings['ice_saved'];
+            $heroPoints = $savings['superhero_points'];
+        }
+
+        // Get unlocked achievements
+        $unlockedAchievements = $user->achievements()
+            ->where('is_unlocked', true)
+            ->get();
 
         return view('activity-logs.index', [
             'activityLogs' => $activityLogs,
@@ -78,10 +96,12 @@ class ActivityLogController extends Controller
             'daysWithLogs' => $daysWithLogs,
             'daysInMonth' => $month->daysInMonth,
             'isSaving' => $isSaving,
-            'savingsAmount' => abs($comparisonToBaseline) * $daysWithLogs,
+            'savingsAmount' => $savingsAmount,
             'treeDays' => $treeDays,
             'iceSaved' => $iceSaved,
             'heroPoints' => $heroPoints,
+            'unlockedAchievements' => $unlockedAchievements,
+            'baseline' => $user->baselineAssessment,
         ]);
     }
 

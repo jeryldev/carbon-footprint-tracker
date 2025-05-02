@@ -141,16 +141,26 @@
                             <div class="bg-purple-50 p-6 rounded-lg my-8">
                                 <h3 class="text-xl font-bold text-purple-800 mb-4">Carbon Savings Calculation</h3>
                                 <p class="text-purple-700 mb-4">
-                                    When you log activities, we compare your actual emissions to your baseline to calculate savings:
+                                    When you log activities, we use an improved method to calculate your carbon savings:
                                 </p>
                                 <ol class="list-decimal pl-8 space-y-3 text-purple-600">
-                                    <li>Divide your yearly baseline by 365 to get your daily baseline</li>
-                                    <li>Calculate your actual emissions for the day</li>
-                                    <li>Subtract actual emissions from baseline to get savings</li>
+                                    <li>We calculate your <strong>actual carbon footprint</strong> based on the transportation mode you used, your electricity consumption, and waste generation</li>
+                                    <li>We calculate what your <strong>expected carbon footprint</strong> would have been if you had used your baseline transportation mode for the same distance traveled, along with your typical electricity usage and waste generation</li>
+                                    <li>The difference between these values gives us your carbon savings for the day</li>
                                 </ol>
+
                                 <div class="bg-white p-4 rounded mt-4 border border-purple-200">
-                                    <p class="text-purple-700 font-medium">
-                                        Positive savings mean you're reducing your carbon footprint compared to your typical habits!
+                                    <p class="text-purple-700 mb-3">
+                                        <span class="font-semibold">Example:</span>
+                                    </p>
+                                    <ul class="list-disc pl-6 space-y-2 text-purple-600">
+                                        <li>If your baseline is driving a car, but you walked 2 km today</li>
+                                        <li>We calculate the emissions you actually produced (0 kg CO₂ for walking)</li>
+                                        <li>We calculate what would have been produced if you'd driven your car for the same 2 km (~0.42 kg CO₂)</li>
+                                        <li>Your savings would be 0.42 kg CO₂</li>
+                                    </ul>
+                                    <p class="text-purple-700 font-medium mt-4">
+                                        This approach gives a more accurate picture of your real impact compared to your typical habits!
                                     </p>
                                 </div>
                             </div>
