@@ -59,7 +59,8 @@
                             </div>
                         </div>
 
-                        @if($savings['is_saving'] === null)
+                        @if (!$hasBaseline)
+                            <!-- No Baseline Assessment -->
                             <div class="text-center py-8">
                                 <div class="text-6xl mb-4">🌍</div>
                                 <p class="text-lg text-gray-600">{{ $savings['message'] }}</p>
@@ -69,7 +70,30 @@
                                     </a>
                                 </div>
                             </div>
+                        @elseif ($recentLogs->isEmpty())
+                            <!-- Has Baseline but No Activity Logs -->
+                            <div class="text-center py-8">
+                                <div class="text-6xl mb-4">📝</div>
+                                <p class="text-lg text-gray-600">You've completed your baseline assessment. Now let's start tracking your daily activities!</p>
+                                <div class="mt-6">
+                                    <a href="{{ route('activity-logs.create') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-700 focus:outline-none focus:ring ring-green-300 transition">
+                                        Log My First Activity
+                                    </a>
+                                </div>
+                            </div>
+                        @elseif($savings['is_saving'] === null)
+                            <!-- Has Baseline but No Activities in Selected Period -->
+                            <div class="text-center py-8">
+                                <div class="text-6xl mb-4">🔍</div>
+                                <p class="text-lg text-gray-600">{{ $savings['message'] }}</p>
+                                <div class="mt-6">
+                                    <a href="{{ route('activity-logs.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-blue-700 focus:outline-none focus:ring ring-blue-300 transition">
+                                        Log Today's Activity
+                                    </a>
+                                </div>
+                            </div>
                         @else
+                            <!-- Has Baseline and Activities -->
                             <div class="text-center mb-6">
                                 <p class="text-xl font-semibold text-gray-800 mb-2">
                                     {{ $savings['message'] }}
@@ -179,7 +203,9 @@
                     <div class="bg-white shadow-sm sm:rounded-lg p-6 mb-6">
                         <div class="flex justify-between items-center mb-4">
                             <h3 class="text-lg font-semibold text-gray-900">My Recent Activity</h3>
-                            <a href="{{ route('activity-logs.index') }}" class="text-sm text-blue-600 hover:underline">View all</a>
+                            @if (!$recentLogs->isEmpty())
+                                <a href="{{ route('activity-logs.index') }}" class="text-sm text-blue-600 hover:underline">View all</a>
+                            @endif
                         </div>
 
                         @if ($recentLogs->isEmpty())

@@ -9,7 +9,7 @@ class Kernel extends HttpKernel
     /**
      * The application's global HTTP middleware stack.
      *
-     * These middleware are run during every request to your application.
+     * These middleware are ran during every request to our application.
      *
      * @var array<int, class-string|string>
      */
