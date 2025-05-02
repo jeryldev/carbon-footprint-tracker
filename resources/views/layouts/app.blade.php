@@ -78,10 +78,13 @@
                         </p>
                         <div class="mt-4 pt-4 border-t border-green-200 max-w-lg mx-auto">
                             <p class="text-gray-600 mb-1">
-                                Created by <span class="font-semibold">Jeryl D. Estopace</span> for CMSC 207 - Web Programming and Development
+                                Carbon Footprint Tracker | CMSC 207 Final Project
                             </p>
                             <p class="text-gray-500 text-sm">
-                                Final Project | University of the Philippines Open University
+                                Created by <span class="font-semibold">Jeryl D. Estopace</span> | University of the Philippines Open University
+                            </p>
+                            <p class="text-gray-500 text-xs mt-2">
+                                Based on research by Aiza C. Cortes from the University of the Philippines Cebu
                             </p>
                         </div>
                     </div>
