@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
@@ -27,6 +28,12 @@ class AuthenticatedSessionController extends Controller
         $request->authenticate();
 
         $request->session()->regenerate();
+
+        $user = User::find(Auth::id());
+
+        if (!$user -> hasCompletedBaselineAssessment()) {
+            return redirect() -> route('baseline-assessment.create');
+        };
 
         return redirect()->intended(route('dashboard', absolute: false));
     }

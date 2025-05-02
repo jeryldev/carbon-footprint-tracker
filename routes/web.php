@@ -17,8 +17,9 @@ Route::get('/', function () {
     return view('welcome');
 })->name('home');
 
+// Basic auth routes (without additional middleware)
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Dashboard
+    // Dashboard - requires completed baseline
     Route::get('/mission-control', [DashboardController::class, 'index'])
         ->name('dashboard');
 
@@ -32,7 +33,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::put('/planet-profile', [BaselineAssessmentController::class, 'update'])
         ->name('baseline-assessment.update');
 
-    // Activity Logs
+    // Activity Logs - requires completed baseline
     Route::get('/planet-actions', [ActivityLogController::class, 'index'])
         ->name('activity-logs.index');
     Route::get('/planet-actions/new', [ActivityLogController::class, 'create'])
@@ -46,17 +47,17 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/planet-actions/{activityLog}', [ActivityLogController::class, 'destroy'])
         ->name('activity-logs.destroy');
 
-    // Profile Management
+    // Wiki/Knowledge Base - available to all users
+    Route::get('/learn', [WikiController::class, 'index'])->name('wiki.index');
+    Route::get('/learn/{topic}', [WikiController::class, 'show'])->name('wiki.show');
+
+    // Profile Management - available to all users
     Route::get('/hero-profile', [ProfileController::class, 'edit'])
         ->name('profile.edit');
     Route::patch('/hero-profile', [ProfileController::class, 'update'])
         ->name('profile.update');
     Route::delete('/hero-profile', [ProfileController::class, 'destroy'])
         ->name('profile.destroy');
-
-    // Wiki/Knowledge Base
-    Route::get('/learn', [WikiController::class, 'index'])->name('wiki.index');
-    Route::get('/learn/{topic}', [WikiController::class, 'show'])->name('wiki.show');
 });
 
 require __DIR__.'/auth.php';

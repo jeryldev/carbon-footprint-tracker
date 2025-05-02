@@ -58,6 +58,21 @@
                 </div>
             @endif
 
+            @if (session('info'))
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-4">
+                    <div class="bg-blue-100 border-l-4 border-blue-500 text-blue-700 p-4 rounded-md shadow-sm" role="alert">
+                        <div class="flex flex-row items-center">
+                            <div class="flex-shrink-0">
+                                <span class="text-2xl">ℹ️</span>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm">{{ session('info') }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Page Content -->
             <main>
                 {{ $slot }}
