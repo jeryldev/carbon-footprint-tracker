@@ -5,25 +5,38 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}" class="text-white font-bold text-xl flex items-center">
-                        <span class="text-3xl mr-2">🌍</span>
-                        <span>Carbon Footprint Tracker</span>
-                    </a>
+                    @if (Auth::user()->hasCompletedBaselineAssessment())
+                        <a href="{{ route('dashboard') }}" class="text-white font-bold text-xl flex items-center">
+                            <span class="text-3xl mr-2">🌍</span>
+                            <span>Carbon Footprint Tracker</span>
+                        </a>
+                    @else
+                        <div class="text-white font-bold text-xl flex items-center">
+                            <span class="text-3xl mr-2">🌍</span>
+                            <span>Carbon Footprint Tracker</span>
+                        </div>
+                    @endif
                 </div>
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
-                        <span class="text-xl mr-1">📝</span> {{ __('Planet Actions') }}
-                    </x-nav-link>
+                    @if (Auth::user()->hasCompletedBaselineAssessment())
+                        <x-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
+                            <span class="text-xl mr-1">📝</span> {{ __('Planet Actions') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')" class="text-white">
-                        <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('activity-logs.create')" :active="request()->routeIs('activity-logs.create')" class="text-white">
+                            <span class="text-xl mr-1">➕</span> {{ __('New Action') }}
+                        </x-nav-link>
 
-                    <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
-                        <span class="text-xl mr-1">📚</span> {{ __('Learn') }}
-                    </x-nav-link>
+                        <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
+                            <span class="text-xl mr-1">📚</span> {{ __('Learn') }}
+                        </x-nav-link>
+                    @else
+                        <x-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
+                            <span class="text-xl mr-1">📚</span> {{ __('Learn') }}
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 
@@ -43,9 +56,15 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('baseline-assessment.edit')">
-                            <span class="text-lg mr-1">🌍</span> {{ __('My Planet Profile') }}
-                        </x-dropdown-link>
+                        @if (Auth::user()->hasCompletedBaselineAssessment())
+                            <x-dropdown-link :href="route('baseline-assessment.edit')">
+                                <span class="text-lg mr-1">🌍</span> {{ __('My Planet Profile') }}
+                            </x-dropdown-link>
+                        @else
+                            <x-dropdown-link :href="route('baseline-assessment.create')">
+                                <span class="text-lg mr-1">🌍</span> {{ __('Start Planet Profile') }}
+                            </x-dropdown-link>
+                        @endif
 
                         <x-dropdown-link :href="route('profile.edit')">
                             <span class="text-lg mr-1">👤</span> {{ __('Hero Settings') }}
@@ -80,16 +99,22 @@
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">
-                <span class="text-lg mr-1">🏠</span> {{ __('Dashboard') }}
-            </x-responsive-nav-link>
+            @if (Auth::user()->hasCompletedBaselineAssessment())
+                <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')" class="text-white">
+                    <span class="text-lg mr-1">🏠</span> {{ __('Dashboard') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
-                <span class="text-lg mr-1">📝</span> {{ __('My Activities') }}
-            </x-responsive-nav-link>
+                <x-responsive-nav-link :href="route('activity-logs.index')" :active="request()->routeIs('activity-logs.*')" class="text-white">
+                    <span class="text-lg mr-1">📝</span> {{ __('My Activities') }}
+                </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('activity-logs.create')" class="text-white">
-                <span class="text-lg mr-1">➕</span> {{ __('Log Activity') }}
+                <x-responsive-nav-link :href="route('activity-logs.create')" class="text-white">
+                    <span class="text-lg mr-1">➕</span> {{ __('Log Activity') }}
+                </x-responsive-nav-link>
+            @endif
+
+            <x-responsive-nav-link :href="route('wiki.index')" :active="request()->routeIs('wiki.*')" class="text-white">
+                <span class="text-lg mr-1">📚</span> {{ __('Learn') }}
             </x-responsive-nav-link>
         </div>
 
@@ -101,9 +126,15 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('baseline-assessment.edit')" class="text-white">
-                    <span class="text-lg mr-1">📊</span> {{ __('Update My Baseline') }}
-                </x-responsive-nav-link>
+                @if (Auth::user()->hasCompletedBaselineAssessment())
+                    <x-responsive-nav-link :href="route('baseline-assessment.edit')" class="text-white">
+                        <span class="text-lg mr-1">📊</span> {{ __('Update My Baseline') }}
+                    </x-responsive-nav-link>
+                @else
+                    <x-responsive-nav-link :href="route('baseline-assessment.create')" class="text-white">
+                        <span class="text-lg mr-1">📊</span> {{ __('Create My Baseline') }}
+                    </x-responsive-nav-link>
+                @endif
 
                 <x-responsive-nav-link :href="route('profile.edit')" class="text-white">
                     <span class="text-lg mr-1">👤</span> {{ __('My Profile') }}

@@ -9,7 +9,7 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             @if (!$hasBaseline)
                 <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-6">
-                    <div class="flex">
+                    <div class="flex flex-row items-center">
                         <div class="flex-shrink-0">
                             <div class="text-2xl">🌟</div>
                         </div>
