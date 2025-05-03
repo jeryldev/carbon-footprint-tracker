@@ -19,6 +19,7 @@ The application helps users:
 - **Baseline Assessment**: Establishes users' typical carbon-producing habits as a reference point
 - **Activity Tracking**: Daily logging of transportation, electricity usage, and waste generation
 - **Dashboard**: Visual representation of carbon savings with relatable metrics (tree days, car kilometers)
+- **Personalized Recommendations**: Contextual eco-tips tailored to user activity patterns
 - **Achievement System**: Gamification elements to motivate eco-friendly choices
 - **Knowledge Base**: Educational content about carbon footprints and calculation methodologies
 
