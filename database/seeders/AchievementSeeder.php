@@ -66,19 +66,22 @@ class AchievementSeeder extends Seeder
             ],
         ];
 
-        // For each user, create achievements
+        // For each user, check if they have achievements already
         User::all()->each(function ($user) use ($achievements) {
-            foreach ($achievements as $achievement) {
-                Achievement::create([
-                    'user_id' => $user->id,
-                    'type' => $achievement['type'],
-                    'name' => $achievement['name'],
-                    'description' => $achievement['description'],
-                    'icon' => $achievement['icon'],
-                    'points' => $achievement['points'],
-                    'is_unlocked' => false,
-                    'unlocked_at' => null,
-                ]);
+            // Only create achievements if user doesn't have any
+            if ($user->achievements()->count() === 0) {
+                foreach ($achievements as $achievement) {
+                    Achievement::create([
+                        'user_id' => $user->id,
+                        'type' => $achievement['type'],
+                        'name' => $achievement['name'],
+                        'description' => $achievement['description'],
+                        'icon' => $achievement['icon'],
+                        'points' => $achievement['points'],
+                        'is_unlocked' => false,
+                        'unlocked_at' => null,
+                    ]);
+                }
             }
         });
     }
