@@ -25,6 +25,28 @@
                 </div>
             @endif
 
+            @if(isset($recommendation))
+                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6 mb-6">
+                    <h3 class="text-lg font-semibold text-green-700 mb-4 flex items-center">
+                        <span class="text-2xl mr-2">💡</span> Today's Planet-Saving Tip
+                    </h3>
+
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <p class="text-lg font-medium text-green-800 mb-2">{{ $recommendation['tip'] }}</p>
+
+                        @if(isset($recommendation['impact_description']))
+                        <p class="text-sm text-green-700 mb-2">{{ $recommendation['impact_description'] }}</p>
+                        @endif
+
+                        @if(isset($recommendation['potential_savings']) && $recommendation['potential_savings'] > 0)
+                        <p class="text-sm text-green-600 font-medium">
+                            You could save about {{ $recommendation['potential_savings'] }}g of carbon pollution each time you do this!
+                        </p>
+                        @endif
+                    </div>
+                </div>
+            @endif
+
             <div class="bg-white shadow-sm sm:rounded-lg p-4 mb-6">
                 <form action="{{ route('dashboard') }}" method="GET" class="flex justify-between items-center">
                     <div class="text-gray-700 font-medium">I want to see my planet-saving power for:</div>
