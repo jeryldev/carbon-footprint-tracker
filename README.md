@@ -74,7 +74,7 @@ The application helps users:
 
     # Run migrations and seed data
     php artisan migrate
-    php artisan db:seed --class=EmissionFactorSeeder
+    php artisan db:seed
     ```
 
 6. **Configure database in .env**:
