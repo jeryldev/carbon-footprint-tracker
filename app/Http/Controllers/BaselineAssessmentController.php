@@ -36,8 +36,6 @@ class BaselineAssessmentController extends Controller
         ]);
 
         $user = auth()->user();
-
-        // Create or update the baseline assessment
         $baselineAssessment = $user->baselineAssessment ?? new BaselineAssessment();
         $baselineAssessment->user_id = $user->id;
         $baselineAssessment->typical_commute_type = $validated['typical_commute_type'];
@@ -45,8 +43,6 @@ class BaselineAssessmentController extends Controller
         $baselineAssessment->commute_days_per_week = $validated['commute_days_per_week'];
         $baselineAssessment->average_electricity_usage = $validated['average_electricity_usage'] ?? 0;
         $baselineAssessment->average_waste_generation = $validated['average_waste_generation'] ?? 0;
-
-        // Calculate and set the baseline carbon footprint
         $baselineAssessment->calculateBaseline();
 
         return redirect()->route('dashboard')->with('success', 'Your planet-saving journey has begun!');
@@ -93,8 +89,6 @@ class BaselineAssessmentController extends Controller
         $baselineAssessment->commute_days_per_week = $validated['commute_days_per_week'];
         $baselineAssessment->average_electricity_usage = $validated['average_electricity_usage'] ?? 0;
         $baselineAssessment->average_waste_generation = $validated['average_waste_generation'] ?? 0;
-
-        // Recalculate baseline carbon footprint
         $baselineAssessment->calculateBaseline();
 
         return redirect()->route('dashboard')->with('success', 'Your planet-saving profile has been updated!');

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\EcoRecommendation;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -13,7 +14,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             EmissionFactorSeeder::class,
-            AchievementSeeder::class
+            AchievementSeeder::class,
+            EcoRecommendationSeeder::class
         ]);
     }
 }
